@@ -23,9 +23,9 @@
             const swals = Swal.mixin({allowOutsideClick: false, cancelButtonColor: '#FF0040',});
             const swalsy = Swal.mixin({confirmButtonText: 'Iya', allowOutsideClick: false,});
             const swalst = Swal.mixin({allowOutsideClick: false, showConfirmButton: false, timer: 3000, timerProgressBar: true,});
-            //cancelButtonText: 'Langsung Aja',
+         
             async function mulaitanya(){
-            	var { isConfirmed: tanyawal } = await swals.fire({title: `Mau isi nama dulu atau langsung aja?`, imageUrl: 'https://i.postimg.cc/SsmkcNY9/bear-cute-1.gif', imageWidth: 120, imageHeight: 120, confirmButtonText: 'Isi Nama',  allowOutsideClick: false, showCancelButton: true,
+            	var { isConfirmed: tanyawal } = await swals.fire({title: `Mau isi nama dulu atau langsung aja?`, cancelButtonText: 'Langsung Aja', imageUrl: 'https://i.postimg.cc/SsmkcNY9/bear-cute-1.gif', imageWidth: 120, imageHeight: 120, confirmButtonText: 'Isi Nama',  allowOutsideClick: false, showCancelButton: false,
                 });if(tanyawal){mulai();} else {nama = 'Kamu';kuis();}
             }
 
