@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<meta charset='UTF-8' />
+<meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5'
+  name='viewport' />
+<meta content='IE=edge' http-equiv='X-UA-Compatible' />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+
+<head>
+  <title>Maaf iya sayang</title>
+  <link rel="icon" type="image/x-icon" href="https://www.palingit.com/favicon.ico">
+  <meta name="description" content="HTML Replit Coding">
+
+
+</head>
+<style>
+  .imgcen {
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+
+  }
+
+
+  :root {
+    --ukuran-teks: 14px;
+    --gaya-font: 'Poppins', sans-serif;
+  }
+</style>
+
+<body>
+
+  <!-- Ganti Audio di sini -->
+  <audio src="sepertinyanew.mp3" id="linkmp3" class="sembunyi"></audio>
+
+  <div id="bodyblur"><img src="" id="wallpaper" /></div>
+
+  <div id='Content'>
+
+    <div id="ftAwal">
+      <!-- Stiker Pembuka -->
+      <img src="https://feeldreams.github.io/heart.png" id="ftoAwal"/>
+    </div>
+    <div id="loveIn">
+      <!-- Tombol LOVE --><label class='lovein'>❤️</label>
+    </div>
+    <p id="ket">Sentuh LOVEnya Sayang!</p>
+
+    <div class="kumpulan">
+      <!-- Kumpulan Background -->
+      <img src="1.jpg" class="imgcen" id="bg1" />
+      <img src="2.jpg" class="imgcen" id="bg2" />
+      <img src="3.jpg" class="imgcen" id="bg3" />
+      <img src="4.jpg" class="imgcen" id="bg4" />
+      <img src="5.jpg" class="imgcen"  id="bg5" />
+      <img src="6.jpg" class="imgcen" id="bg6" />
+      <img src="7.jpg" class="imgcen" id="bg7" />
+      <img src="8.jpg" class="imgcen" id="bg8" />
+      <img src="9.jpg"  class="imgcen" id="bg9" />
+      <img src="10.jpg" class="imgcen" id="bg10" />
+      <img src="11.jpg" class="imgcen" id="bg11" />
+
+      <!-- Foto/Stiker Akhir -->
+      <img src="https://feeldreams.github.io/bolehkah/heart.png" id="ftoAkhir" />
+    </div>
+
+    <div>
+      <blockquote id='bq'>
+        <p id="kalimat" style="text-align:center"></p>
+      </blockquote>
+    </div>
+
+    <!-- Tombol Kirim Pesan -->
+    <div id="Tombol">
+      <a id="By">&#128140; Balas</a>
+    </div>
+
+  </div>
+
+  <!-- Jangan Edit Bagian Ini -->
+  <script>
+    const body = document.querySelector("body");
+    const swalst = Swal.mixin({ timer: 2500, allowOutsideClick: false, showConfirmButton: false, timerProgressBar: true, imageHeight: 90, });
+    audio = new Audio('' + linkmp3.src); ftganti = 0; fungsi = 0; fungsiAwal = 0;
+    function berjatuhan() {
+      const heart = document.createElement("div"); heart.className = "fas fa-heart"; heart.style.left = (Math.random() * 90) + "vw";
+      heart.style.animationDuration = (Math.random() * 3) + 2 + "s"; body.appendChild(heart);
+    } setInterval(function name(params) {
+      var heartArr = document.querySelectorAll(".fa-heart");
+      if (heartArr.length > 100) {
+        heartArr[0].remove()
+      }
+    }, 100);
+    Content.style = "opacity:1;margin-top:14vh";
+    const swals = Swal.mixin({ allowOutsideClick: false, cancelButtonColor: '#FF0040', imageHeight: 80, });
+    const inip = []; const iniwp = []; iden = 1;
+    setTimeout(tes, 500); function tes() {
+      wallpaper.src = iniwp[1];
+    }
+
+    iniwp[1] = bg1.src;
+    iniwp[2] = bg2.src;
+    iniwp[3] = bg3.src;
+    iniwp[4] = bg4.src;
+    iniwp[5] = bg5.src;
+    iniwp[6] = bg6.src;
+    iniwp[7] = bg7.src;
+    iniwp[8] = bg8.src;
+    iniwp[9] = bg9.src;
+    iniwp[10] = bg10.src;
+    iniwp[11] = bg11.src;
+
+    inip[1] = "sepertinya aku masih<br>belum berhasil yaa,";
+    inip[2] = "untuk menjadi<br>apa yang sayang mau";
+    inip[3] = "aku minta maaf ya";
+    inip[4] = "kalo sama aku,";
+    inip[5] = "sayang banyak kecewanya,";
+    inip[6] = "sayang banyak sebelnya,";
+    inip[7] = "dan juga banyak marahnya,";
+    inip[8] = "aku minta maaf";
+    inip[9] = "kalo sayang ketemunya<br>sama orang seperti aku";
+    inip[10] = "yang masih belum <br> bisa memahami atau bahagiain sayang ";
+    inip[11] = "sekali lagi<br>aku minta maaf ツ";
+
+    totalPesan = 11; //Input total pesan (slide) di sini ya!
+
+    function waktumuncul() {
+      setTimeout(kalimatakhir, 4000);
+      setTimeout(kalimatakhir, 6900);
+      setTimeout(kalimatakhir, 9650);
+      setTimeout(kalimatakhir, 11450);
+      setTimeout(kalimatakhir, 12300);
+      setTimeout(kalimatakhir, 14100);
+      setTimeout(kalimatakhir, 15900);
+      setTimeout(kalimatakhir, 17750);
+      setTimeout(kalimatakhir, 19100);
+      setTimeout(kalimatakhir, 22100);
+      setTimeout(kalimatakhir, 26100);
+    }
+  </script>
+  <script src="script.js"></script>
+  <!-- Sampai Sini -->
+</body>
+
+</html>
