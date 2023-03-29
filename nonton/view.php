@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="Container" style="padding-bottom:56.25%; position:relative; display:block; width: 100%">
+        <iframe id="UstreamIframe" src="http://104.237.198.198" width="100%" height="100%"
+            style="position:absolute; top:0; left: 0" allowfullscreen webkitallowfullscreen frameborder="0"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</body>
+
+</html>
