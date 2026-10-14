@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="seo-meta-title">Property Malang Raya - Portal Terpadu Tanah, Rumah & Villa Malang Raya</title>
+    <meta id="seo-meta-desc" name="description" content="Cari dan temukan tanah kavling SHM, rumah siap huni, dan villa eksklusif berhawa sejuk di Kota Malang, Kabupaten Malang, dan Kota Batu.">
+    <meta id="seo-meta-keywords" name="keywords" content="properti malang, tanah kavling malang, rumah malang, villa batu, perumahan malang raya">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes kenBurns {
+            0% { transform: scale(1.05) translate(0, 0); }
+            50% { transform: scale(1.18) translate(-1.5%, -1.5%); }
+            100% { transform: scale(1.05) translate(0, 0); }
+        }
+
+        .animate-kenburns {
+            animation: kenBurns 22s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes shatterOut {
+            0% {
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+                filter: blur(0) brightness(1);
+            }
+            35% {
+                opacity: 1;
+                filter: blur(0) brightness(1.25);
+            }
+            100% {
+                transform: translate3d(var(--tx), var(--ty), 0) rotate(var(--rot)) scale(0.5);
+                opacity: 0;
+                filter: blur(8px) brightness(1.5);
+            }
+        }
+
+        .shatter-tile {
+            background-repeat: no-repeat;
+            animation: shatterOut 0.9s cubic-bezier(0.35, 0, 0.65, 1) forwards;
+            will-change: transform, opacity, filter;
+        }
+
+        @keyframes imgReveal {
+            0% {
+                opacity: 0;
+                transform: scale(1.2);
+                filter: blur(14px) saturate(1.5);
+            }
+            55% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0) saturate(1);
+            }
+        }
+
+        .animate-img-reveal {
+            animation: imgReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes shardFlash {
+            0% { opacity: 0; }
+            20% { opacity: 0.35; }
+            100% { opacity: 0; }
+        }
+
+        .shatter-flash {
+            animation: shardFlash 0.7s ease-out forwards;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-float {
+            animation: floatSlow 4s ease-in-out infinite;
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-x-hidden">
+
+
+
+    <!-- Navigation Bar (Seamlessly Harmonized with Slideshow & Emerald Theme) -->
+    <header id="main-header" class="bg-white/95 backdrop-blur-md text-gray-950 sticky top-0 z-50 border-b border-emerald-100 shadow-md transition-all duration-300">
+        <div class="max-w-[1360px] mx-auto px-5 lg:px-8 min-h-[80px] py-2 flex items-center gap-4 lg:gap-6 relative">
+            <div class="flex items-center space-x-3 cursor-pointer group flex-shrink-0" onclick="navigateTo('landing')">
+                <div class="bg-gradient-to-br from-emerald-500 to-amber-500 text-emerald-950 p-2.5 rounded-2xl font-bold text-lg shadow-md group-hover:scale-105 transition animate-float">
+                    <i class="fa-solid fa-mountain-city"></i>
+                </div>
+                <div>
+                    <h1 id="header-logo-title" class="text-base sm:text-lg font-black tracking-tight text-gray-950 transition-colors duration-300">Property<span class="text-amber-500">Malang Raya</span></h1>
+                    <p id="header-logo-subtitle" class="text-[10px] text-gray-500 font-medium hidden sm:block transition-colors duration-300">Tanah Kavling, Rumah & Villa Sejuk</p>
+                </div>
+            </div>
+            
+            <!-- Header Menu -->
+            <nav id="dynamic-flat-nav" class="hidden md:flex flex-1 min-w-0 justify-center transition-colors duration-300">
+                <!-- Populated dynamically by JS -->
+            </nav>
+
+            <!-- Hubungi Admin WA -->
+            <a id="header-wa-btn" href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20ingin%20konsultasi%20properti." target="_blank" rel="noopener noreferrer" class="flex-shrink-0 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold px-4 py-2.5 rounded-xl text-[12px] lg:text-[13px] shadow-md transition hover:scale-105 flex items-center gap-2 border border-emerald-500/40">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+                <span class="hidden sm:inline">Hubungi Kami</span>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- ================= PAGE 1: LANDING PAGE ================= -->
+    <div id="page-landing" class="page-view">
+        <!-- Full-Screen Immersive Hero Background Slideshow Section (Harmonized Emerald Gradient & Small Bottom Text) -->
+        <section class="relative bg-emerald-950 text-white min-h-[85vh] sm:min-h-[90vh] flex items-end justify-center px-4 pb-12 overflow-hidden">
+            
+            <!-- Background Slideshow Container with Crossfade -->
+            <div id="hero-bg-slideshow-container" class="absolute inset-0 z-0 overflow-hidden">
+                <!-- Populated dynamically via JavaScript -->
+            </div>
+            
+            <!-- Harmonized Emerald & Black Gradient Overlay at Bottom for Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/60 to-transparent z-1"></div>
+
+            <!-- Click-to-advance Layer (image shatter effect on click) -->
+            <div onclick="nextSlide()" title="Klik untuk ganti gambar" class="absolute inset-0 z-[5] cursor-pointer"></div>
+
+            <!-- Middle Floating Arrow Icons for Background Slideshow -->
+            <button onclick="prevSlide()" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-950/70 hover:bg-emerald-600 text-white flex items-center justify-center text-lg sm:text-xl backdrop-blur-md border border-emerald-500/30 transition duration-300 hover:scale-110 shadow-2xl" title="Gambar Sebelumnya">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-emerald-950/70 hover:bg-emerald-600 text-white flex items-center justify-center text-lg sm:text-xl backdrop-blur-md border border-emerald-500/30 transition duration-300 hover:scale-110 shadow-2xl" title="Gambar Selanjutnya">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Bottom Small Text Content Box -->
+            <div class="max-w-3xl mx-auto w-full relative z-10 text-center space-y-3 px-4">
+                
+                <div id="hero-slide-badge" class="inline-flex items-center gap-1.5 bg-emerald-900/90 border border-emerald-600/60 text-amber-300 text-[11px] sm:text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider backdrop-blur-md shadow-lg animate-fade-in-up">
+                    <i class="fa-solid fa-mountain-sun text-amber-400"></i> Spesialis Properti Malang Raya
+                </div>
+                
+                <h2 id="hero-slide-title" class="text-xl sm:text-2xl md:text-3xl font-black tracking-tight leading-snug text-white animate-fade-in-up" style="animation-delay: 0.1s;">
+                    Wujudkan Hunian Impian & Investasi Properti Paling Menguntungkan
+                </h2>
+
+                <p id="hero-slide-desc" class="text-emerald-100 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Nikmati kenaikan *capital gain* tinggi dan *passive income* maksimal di kawasan dataran tinggi berhawa sejuk Kota Malang, Kabupaten Malang, dan Kota Batu dengan legalitas SHM 100% aman.
+                </p>
+
+                <!-- Slide Indicator Dots & Counter at Bottom -->
+                <div class="flex items-center justify-center gap-3 pt-2 animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <div id="hero-slide-dots" class="flex justify-center items-center gap-1.5">
+                        <!-- Dots injected via JS -->
+                    </div>
+                    <span id="hero-slide-counter" class="text-[11px] font-semibold text-emerald-300 tracking-wider">1 / 3</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- KEUNGGULAN KAMI SECTION -->
+        <section class="py-20 bg-white border-b border-gray-200 reveal-on-scroll">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-emerald-600 font-bold text-sm uppercase tracking-widest inline-block animate-pulse">Keunggulan Utama</span>
+                    <h3 class="text-3xl sm:text-4xl font-black text-gray-900 mt-2">Mengapa Memilih Properti Kami?</h3>
+                    <p class="text-gray-500 mt-2 text-sm">Komitmen nyata kami dalam menghadirkan hunian dan investasi terbaik dengan standar tertinggi.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Keunggulan 1 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Legalitas SHM 100% Aman</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Seluruh aset tanah kavling, rumah, dan villa telah memiliki Sertifikat Hak Milik (SHM) pecah per unit dan izin mendirikan bangunan (IMB/PBG) resmi.</p>
+                    </div>
+                    <!-- Keunggulan 2 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Lokasi Dataran Tinggi Strategis</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Berada di kawasan berhawa sejuk Malang Raya dengan panorama pegunungan yang asri, akses jalan lebar, serta dekat pusat fasilitas publik.</p>
+                    </div>
+                    <!-- Keunggulan 3 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Capital Gain Tinggi</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Nilai investasi properti di Malang dan Kota Batu terus meningkat pesat setiap tahunnya, memberikan keuntungan ganda bagi portofolio Anda.</p>
+                    </div>
+                    <!-- Keunggulan 4 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Legalitas Aman</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Legalitas dijamin aman (Sertifikat, IMB & PBB ready dan telah di split per kavling).</p>
+                    </div>
+                    <!-- Keunggulan 5 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Harga Termurah</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Kami menjamin harga jual terbaik untuk setiap perumahan dibanding kompetitor lain.</p>
+                    </div>
+                    <!-- Keunggulan 6 -->
+                    <div class="bg-gradient-to-br from-emerald-50/60 to-white p-8 rounded-3xl border border-emerald-100 hover:border-emerald-500 transition duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center text-2xl font-bold mb-6 shadow-md group-hover:scale-110 group-hover:rotate-6 transition duration-300">
+                            <i class="fa-solid fa-house-chimney-user"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-gray-900 mb-3">Fasilitas Terlengkap</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">Kualitas material dan bangunan lebih terjamin karena dibangun sendiri oleh developer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signature Flagship Developments -->
+        <section class="py-20 max-w-7xl mx-auto px-4 reveal-on-scroll">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4">
+                <div>
+                    <!-- <span class="text-emerald-600 font-bold text-sm uppercase tracking-widest">Portofolio Utama</span> -->
+                    <h3 class="text-3xl font-black text-gray-900 mt-1">Proyek Unggulan Malang Raya</h3>
+                </div>
+                <button onclick="navigateTo('katalog')" class="bg-gray-900 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-xl text-sm transition hover:scale-105 shadow flex items-center gap-2">
+                    <span>Lihat Profil Portofolio Proyek</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            <div id="landing-property-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+        </section>
+
+        <!-- Corporate Testimonial Section -->
+        <section class="relative isolate overflow-hidden py-20 text-white reveal-on-scroll">
+            <!-- Background Image + Ken Burns Animation -->
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <img src="https://img.cnt.traveloka.com/tvlk/blog/2024/03/shutterstock_1171283443.jpg" alt="Kawasan properti Malang Raya" class="w-full h-full object-cover animate-kenburns">
+                <!-- Emerald Gradient Overlay for Readability -->
+                <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/95 via-emerald-950/75 to-emerald-950/95"></div>
+                <div class="absolute inset-0 bg-emerald-950/30"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="text-amber-400 font-bold text-sm uppercase tracking-widest">Kepercayaan Klien</span>
+                    <h3 class="text-3xl font-black text-white mt-1">Pengalaman Investor & Pemilik Properti</h3>
+                </div>
+                <div id="landing-testimonial-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= PAGE 2: KATALOG / COMPANY PROFILE PROYEK ================= -->
+    <div id="page-katalog" class="page-view hidden py-16 max-w-7xl mx-auto px-4">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <!-- <span class="bg-emerald-100 text-emerald-800 font-bold text-xs uppercase px-4 py-1.5 rounded-full tracking-widest">Company Profile • Portofolio Proyek</span> -->
+            <h2 class="text-3xl sm:text-4xl font-black text-gray-900 mt-3">Eksplorasi Kawasan & Proyek Eksklusif Malang Raya</h2>
+            <p class="text-gray-600 mt-3 text-base leading-relaxed">
+                Pilih langsung kartu proyek bergambar di bawah ini untuk melihat narasi perusahaan, spesifikasi kawasan, denah tata letak, serta unit properti pilihan yang tersedia.
+            </p>
+        </div>
+
+        <div id="catalog-image-menu-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"></div>
+
+        <div class="border-t border-gray-200 pt-16">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h3 class="text-2xl font-black text-gray-900">Rincian Portofolio & Penawaran Unit</h3>
+                    <p class="text-gray-500 text-sm mt-1">Informasi lengkap kompilasi proyek unggulan PT Malang Raya Propertindo.</p>
+                </div>
+                <button onclick="resetCatalogFilter()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-4 py-2.5 rounded-xl text-sm transition">Tampilkan Semua Proyek</button>
+            </div>
+            <div id="catalog-grid" class="space-y-12"></div>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 3A: DAFTAR TAHAP PROYEK ================= -->
+    <div id="page-tahap" class="page-view hidden py-12 max-w-7xl mx-auto px-4">
+        <button onclick="navigateTo('katalog')" class="inline-flex items-center gap-2 text-emerald-600 font-bold hover:underline mb-6 text-sm">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Katalog Proyek
+        </button>
+        <div class="mb-10 text-center">
+            <span class="text-emerald-600 font-bold text-sm uppercase">Daftar Tahap Proyek</span>
+            <h2 id="tahap-page-title" class="text-2xl sm:text-3xl font-black text-gray-900 mt-1">Nama Proyek</h2>
+            <p id="tahap-page-sub" class="text-gray-500 mt-2 text-sm">Pilih tahap proyek untuk melihat detail lengkapnya</p>
+        </div>
+        <div id="tahap-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </div>
+
+    <!-- ================= PAGE 3: DETAIL PROYEK / UNIT ================= -->
+    <div id="page-detail" class="page-view hidden py-12 max-w-5xl mx-auto px-4">
+        <button id="detail-back-btn" onclick="navigateTo('katalog')" class="inline-flex items-center gap-2 text-emerald-600 font-bold hover:underline mb-6 text-sm">
+            <i class="fa-solid fa-arrow-left"></i> <span id="detail-back-label">Kembali ke Profil Proyek</span>
+        </button>
+        <div id="detail-card-content" class="bg-white rounded-3xl shadow-xl overflow-hidden p-6 sm:p-10"></div>
+    </div>
+
+    <!-- ================= PAGE 4: ARTIKEL & BERITA ================= -->
+    <div id="page-artikel" class="page-view hidden py-12 max-w-7xl mx-auto px-4">
+        <div class="mb-10 text-center">
+            <span class="text-emerald-600 font-bold text-sm uppercase">Wawasan & Panduan</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-gray-900 mt-1">Artikel & Berita Properti Malang Raya</h2>
+            <p class="text-gray-500 mt-2 text-sm">Tips investasi tanah, perkembangan infrastruktur tol, dan tren hunian terkini</p>
+        </div>
+        <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+    </div>
+
+    <!-- ================= PAGE 5: DETAIL ARTIKEL ================= -->
+    <div id="page-article-detail" class="page-view hidden py-12 max-w-4xl mx-auto px-4">
+        <button onclick="navigateTo('artikel')" class="inline-flex items-center gap-2 text-emerald-600 font-bold hover:underline mb-6 text-sm">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Artikel
+        </button>
+        <div id="article-detail-content" class="bg-white rounded-3xl shadow-xl p-6 sm:p-12 space-y-6"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm border-t border-gray-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 space-y-6">
+            <p class="font-bold text-white text-lg">Property Malang Raya Portal</p>
+            <p>Pusat Informasi & Pemasaran Tanah, Rumah, dan Villa terbaik di Kota Malang, Kabupaten Malang, dan Kota Batu.</p>
+            
+            <div class="flex justify-center items-center gap-6 pt-2">
+                <a id="footer-ig-link" href="https://instagram.com/malangrayaproperty" target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow hover:scale-110"><i class="fa-brands fa-instagram text-lg"></i></a>
+                <a id="footer-fb-link" href="https://facebook.com/malangrayaproperty" target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow hover:scale-110"><i class="fa-brands fa-facebook text-lg"></i></a>
+                <a id="footer-wa-link" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="bg-gray-800 hover:bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition shadow hover:scale-110"><i class="fa-brands fa-whatsapp text-lg"></i></a>
+            </div>
+
+            <p class="text-xs text-gray-600 pt-4 border-t border-gray-800">&copy; 2026 Property Malang Raya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC & STATE -->
+    <script src="data.js"></script>
+    <script>
+        const SEED = window.SEED_DATA || {};
+        const LS = (key) => { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; } };
+        const DATA_VERSION = 5;
+        try {
+            if (parseInt(localStorage.getItem('malangraya_data_version') || '0', 10) < DATA_VERSION) {
+                ['malangraya_properties', 'malangraya_articles', 'malangraya_testimonials', 'malangraya_sosmed'].forEach(k => localStorage.removeItem(k));
+                localStorage.setItem('malangraya_data_version', String(DATA_VERSION));
+            }
+        } catch (e) {}
+
+        let properties = LS('malangraya_properties') || SEED.properties || [
+            {
+                id: 1,
+                nama: "Villa Panorama Indah Songgoriti",
+                kategori: "Villa",
+                kota: "Kota Batu",
+                hargaNum: 1250000000,
+                harga: "Rp 1,25 Miliar",
+                badge: "🔥 Hot Deal",
+                fotos: [
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1920&q=80",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80"
+                ],
+                video: "https://www.youtube.com/embed/5qap5aO4i9A",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.981881881882!2d112.518!3d-7.876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTInMzMuNiJTIDExMsKwMzEnMDUuMiJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+                deskripsi: "Villa 2 lantai berhawa sejuk di kawasan wisata Songgoriti Batu. Memiliki 3 Kamar Tidur, 2 Kamar Mandi, Kolam Renang Privat, view langsung pegunungan Panderman dan Arjuno. Legalitas SHM & IMB lengkap siap huni atau disewakan homestay."
+            },
+            {
+                id: 2,
+                nama: "Kavling Grand Dieng Asri",
+                kategori: "Tanah Kavling",
+                kota: "Kota Malang",
+                hargaNum: 350000000,
+                harga: "Rp 350 Juta",
+                badge: "⏳ Tersisa 2 Unit Lagi",
+                fotos: [
+                    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80"
+                ],
+                video: "https://www.youtube.com/embed/ScMzIvxBSi4",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.4!2d112.61!3d-7.98!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTgnNDguMCJTIDExMsKwMzYnMzYuMCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+                deskripsi: "Tanah kavling matang siap bangun di area Dieng Kota Malang. Luas 120 m² (Lebar depan 8m). Akses jalan perumahan paving lebar 7 meter. Dekat kampus Univ. Merdeka Malang dan Cyber Mall. SHM pecah per kavling."
+            },
+            {
+                id: 3,
+                nama: "Perumahan Green Suhat Modern",
+                kategori: "Rumah",
+                kota: "Kota Malang",
+                hargaNum: 850000000,
+                harga: "Rp 850 Juta",
+                badge: "⭐ Best Investment",
+                fotos: [
+                    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
+                ],
+                video: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1!2d112.63!3d-7.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTcnMDAuMCJTIDExMsKwMzcnNDguMCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+                deskripsi: "Rumah siap huni desain minimalis modern di Soekarno Hatta Malang. Luas Tanah 90 m², Luas Bangunan 110 m². 3 Kamar Tidur, 2 Kamar Mandi, carport 2 mobil. One gate system, satpam 24 jam. Bebas banjir dan strategis dekat pusat kuliner."
+            }
+        ];
+
+        let articles = LS('malangraya_articles') || SEED.articles || [
+            {
+                id: 1,
+                judul: "Tips Membeli Tanah Kavling di Malang Agar Legalitas Aman 100%",
+                tanggal: "12 Oktober 2026",
+                foto: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+                video: "https://www.youtube.com/embed/ScMzIvxBSi4",
+                deskripsiSingkat: "Panduan penting bagi investor pemula untuk memeriksa keabsahan Sertifikat Hak Milik (SHM) pecah dan peruntukan lahan di Malang Raya.",
+                konten: "Membeli tanah kavling di Malang memerlukan ketelitian mendalam terhadap status hukum tanah (SHM), peruntukan lahan (ITR), serta akses jalan lingkungan. Pastikan developer telah memecah sertifikat per unit kavling sehingga proses AJB dan balik nama di BPN dapat dilakukan dengan cepat tanpa kendala sengketa."
+            },
+            {
+                id: 2,
+                judul: "Prospek Cerah Investasi Villa di Kota Batu Tahun 2026",
+                tanggal: "10 Oktober 2026",
+                foto: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+                video: "https://www.youtube.com/embed/5qap5aO4i9A",
+                deskripsiSingkat: "Mengapa kawasan wisata Songgoriti dan sekitarnya menjadi magnet utama passive income melalui homestay dan villa eksklusif.",
+                konten: "Kota Batu terus berkembang sebagai destinasi wisata pegunungan nomor satu di Jawa Timur. Memiliki villa berhawa sejuk di kawasan strategis tidak hanya memberikan tempat liburan pribadi yang nyaman, tetapi juga menghasilkan passive income yang sangat menjanjikan dari penyewaan harian kepada wisatawan."
+            },
+            {
+                id: 3,
+                judul: "Perkembangan Infrastruktur Tol Malang-Pandaan & Dampaknya pada Harga Properti",
+                tanggal: "05 Oktober 2026",
+                foto: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+                video: "https://www.youtube.com/embed/tgbNymZ7vqY",
+                deskripsiSingkat: "Analisis kenaikan capital gain properti di Malang Raya seiring kemudahan akses transportasi dari Surabaya dan luar kota.",
+                konten: "Akses tol Malang-Pandaan mempercepat waktu tempuh perjalanan darat dari Surabaya ke Malang Raya secara signifikan. Hal ini memicu lonjakan permintaan hunian dan tanah kavling matang, membuat nilai investasi (capital gain) properti di Malang meroket hingga belasan persen setiap tahunnya."
+            }
+        ];
+
+        let testimonials = LS('malangraya_testimonials') || SEED.testimonials || [
+            {
+                id: 1,
+                nama: "Bpk. Hendra Kusuma",
+                peran: "Investor Kavling Kota Malang",
+                rating: 5,
+                ulasan: "Pembelian tanah kavling di Dieng sangat transparan, SHM aman dan langsung dibantu proses balik nama."
+            }
+        ];
+
+        let sosmed = LS('malangraya_sosmed') || SEED.sosmed || {
+            wa: '6281234567890',
+            ig: 'https://instagram.com/malangrayaproperty',
+            fb: 'https://facebook.com/malangrayaproperty'
+        };
+
+        // Extract all hero background images with varied slide content
+        let heroSlides = [
+            {
+                image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1920&q=80",
+                badge: "🌟 Villa Eksklusif Kota Batu",
+                title: "Wujudkan Hunian Impian & Investasi Properti Paling Menguntungkan",
+                desc: "Nikmati kenaikan *capital gain* tinggi dan *passive income* maksimal di kawasan dataran tinggi berhawa sejuk Kota Batu dengan legalitas SHM 100% aman."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
+                badge: "💎 Tanah Kavling Matang Siap Bangun",
+                title: "Pilih Kavling Strategis Ber-SHM di Pusat Kota Malang",
+                desc: "Investasi tanah kavling matang dengan akses jalan lebar, lingkungan asri, dan potensi kenaikan harga tanah yang sangat pesat setiap tahunnya."
+            },
+            {
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+                badge: "🏡 Perumahan Modern & Asri",
+                title: "Kawasan Hunian Nyaman untuk Keluarga & Masa Depan",
+                desc: "Temukan perumahan berkonsep modern minimalis dengan one gate system, keamanan 24 jam, dan fasilitas lingkungan terlengkap di Malang Raya."
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        let slideInterval = null;
+
+        function applyDynamicSosmed() {
+            const waUrl = `https://wa.me/${sosmed.wa}?text=Halo%20Admin,%20saya%20tertarik%20dengan%20properti%20di%20Malang%20Raya.`;
+            if (document.getElementById('banner-wa-btn')) document.getElementById('banner-wa-btn').href = waUrl;
+            if (document.getElementById('header-wa-btn')) document.getElementById('header-wa-btn').href = waUrl;
+            if (document.getElementById('footer-wa-link')) document.getElementById('footer-wa-link').href = `https://wa.me/${sosmed.wa}`;
+            if (document.getElementById('footer-ig-link')) document.getElementById('footer-ig-link').href = sosmed.ig;
+            if (document.getElementById('footer-fb-link')) document.getElementById('footer-fb-link').href = sosmed.fb;
+        }
+
+        function applySEO(title, desc, keywords) {
+            if (title) document.getElementById('seo-meta-title').innerText = title;
+            if (desc) document.getElementById('seo-meta-desc').setAttribute('content', desc);
+            if (keywords) document.getElementById('seo-meta-keywords').setAttribute('content', keywords);
+        }
+
+        function populateFlatNav() {
+            const nav = document.getElementById('dynamic-flat-nav');
+            if (!nav) return;
+
+            const isDark = window.scrollY > 40;
+            const btnColorClass = isDark ? 'text-gray-200 hover:bg-emerald-800 hover:text-white' : 'text-gray-800 hover:bg-white hover:text-emerald-700';
+            const btnClass = `nav-menu-btn flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs lg:text-[13px] font-bold transition ${btnColorClass}`;
+
+            let html = `
+                <div id="flat-nav-pill" class="flex flex-wrap items-center justify-center gap-1 bg-emerald-50/70 p-1.5 rounded-2xl transition-colors duration-300">
+                    <button onclick="navigateTo('landing')" class="${btnClass}">
+                        <i class="fa-solid fa-house text-amber-500"></i> Beranda
+                    </button>
+            `;
+
+            if (properties.length > 0) {
+                properties.filter(p => p.menuHeader !== false).forEach((p) => {
+                    const hasTahap = p.tahap && p.tahap.length > 0;
+                    const menuLabel = ((p.menuLabel || '').trim()) ? p.menuLabel.trim() : p.nama;
+                    let tahapRows = '';
+                    if (hasTahap) {
+                        tahapRows = `<div class="h-px bg-emerald-100 my-1"></div>` + p.tahap.map(st => `
+                            <button onclick="closeNavDropdowns(); showStageDetail(${p.id}, ${st.id})" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-gray-600 hover:bg-emerald-50 hover:text-emerald-700 transition text-left">
+                                <i class="fa-solid fa-layer-group text-amber-500"></i> <span class="line-clamp-1">${stageTitle(p, st)}</span>
+                            </button>
+                        `).join('');
+                    }
+
+                    html += `
+                        <div class="relative">
+                            <button onclick="toggleNavDropdown(event, ${p.id})" class="${btnClass} text-left" title="${p.nama}">
+                                <i class="fa-solid fa-city text-amber-500 flex-shrink-0"></i> 
+                                <span>${menuLabel}</span>
+                                <i class="fa-solid fa-chevron-down text-[9px] opacity-60"></i>
+                            </button>
+                            <div id="nav-dropdown-${p.id}" class="hidden absolute left-1/2 -translate-x-1/2 top-full pt-2 z-[60]">
+                                <div class="bg-white rounded-2xl shadow-2xl border border-emerald-100 p-2 min-w-[220px] w-max text-left">
+                                    <button onclick="closeNavDropdowns(); showDetail(${p.id})" class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition text-left">
+                                        <i class="fa-solid fa-tag"></i> <span>${p.kategori}</span>
+                                    </button>
+                                    ${tahapRows}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            html += `
+                    <button onclick="navigateTo('artikel')" class="${btnClass}">
+                        <i class="fa-solid fa-newspaper text-amber-500"></i> Artikel
+                    </button>
+                </div>
+            `;
+
+            nav.innerHTML = html;
+        }
+
+        function closeNavDropdowns() {
+            document.querySelectorAll('[id^="nav-dropdown-"]').forEach(el => el.classList.add('hidden'));
+        }
+
+        function toggleNavDropdown(event, propId) {
+            if (event) event.stopPropagation();
+            const panel = document.getElementById('nav-dropdown-' + propId);
+            if (!panel) return;
+            const willOpen = panel.classList.contains('hidden');
+            closeNavDropdowns();
+            if (willOpen) panel.classList.remove('hidden');
+        }
+
+        // Fullscreen Hero Slideshow Functions with Varied Content & Shatter Transition
+        function buildShatterLayer(src) {
+            const cols = 5;
+            const rows = 3;
+            let tiles = '';
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const tx = (Math.random() * 220 - 110).toFixed(1) + 'px';
+                    const ty = (Math.random() * 260 + 60).toFixed(1) + 'px';
+                    const rot = (Math.random() * 70 - 35).toFixed(1) + 'deg';
+                    const delay = ((c + r) * 0.03 + Math.random() * 0.12).toFixed(2) + 's';
+                    const posX = cols > 1 ? (c / (cols - 1)) * 100 : 0;
+                    const posY = rows > 1 ? (r / (rows - 1)) * 100 : 0;
+
+                    tiles += `
+                        <div class="shatter-tile" style="--tx:${tx};--ty:${ty};--rot:${rot};animation-delay:${delay};background-image:url('${src}');background-size:${cols * 100}% ${rows * 100}%;background-position:${posX}% ${posY}%;"></div>
+                    `;
+                }
+            }
+
+            return `
+                <div class="shatter-layer absolute inset-0 z-10 grid" style="grid-template-columns:repeat(${cols},1fr);grid-template-rows:repeat(${rows},1fr);">
+                    ${tiles}
+                </div>
+                <div class="shatter-layer shatter-flash absolute inset-0 z-20 bg-white pointer-events-none"></div>
+            `;
+        }
+
+        function renderHeroSlideshow(animateTransition = false) {
+            const bgContainer = document.getElementById('hero-bg-slideshow-container');
+            const dotsContainer = document.getElementById('hero-slide-dots');
+            const counterText = document.getElementById('hero-slide-counter');
+            const badgeEl = document.getElementById('hero-slide-badge');
+            const titleEl = document.getElementById('hero-slide-title');
+            const descEl = document.getElementById('hero-slide-desc');
+
+            if (!bgContainer) return;
+
+            if (currentSlideIndex >= heroSlides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = heroSlides.length - 1;
+
+            const slide = heroSlides[currentSlideIndex];
+            const prevSrc = bgContainer.dataset.currentSrc;
+            const isShatter = animateTransition && prevSrc && prevSrc !== slide.image;
+            bgContainer.dataset.currentSrc = slide.image;
+
+            const newLayer = `
+                <div class="absolute inset-0 z-0 ${isShatter ? 'animate-img-reveal' : 'animate-fade-in'}">
+                    <img src="${slide.image}" class="w-full h-full object-cover">
+                </div>
+            `;
+
+            if (isShatter) {
+                bgContainer.innerHTML = buildShatterLayer(prevSrc) + newLayer;
+                const shards = bgContainer.querySelectorAll('.shatter-layer');
+                setTimeout(() => {
+                    shards.forEach(el => { if (el.parentNode) el.remove(); });
+                }, 1400);
+            } else if (prevSrc && prevSrc !== slide.image) {
+                bgContainer.innerHTML = `
+                    <div class="absolute inset-0 z-0">
+                        <img src="${prevSrc}" class="w-full h-full object-cover">
+                    </div>
+                ` + newLayer;
+            } else {
+                bgContainer.innerHTML = newLayer;
+            }
+
+            // Update varied slide content
+            if (badgeEl) badgeEl.innerHTML = `<i class="fa-solid fa-mountain-sun text-amber-400"></i> ${slide.badge}`;
+            if (titleEl) titleEl.innerText = slide.title;
+            if (descEl) descEl.innerText = slide.desc;
+            if (counterText) counterText.innerText = `${currentSlideIndex + 1} / ${heroSlides.length}`;
+
+            // Render Dots
+            if (dotsContainer) {
+                dotsContainer.innerHTML = '';
+                heroSlides.forEach((_, idx) => {
+                    const activeClass = idx === currentSlideIndex ? 'w-6 bg-amber-400' : 'w-2 bg-emerald-400/40';
+                    dotsContainer.innerHTML += `
+                        <button onclick="goToSlide(${idx})" class="h-2 rounded-full transition-all duration-300 ${activeClass}"></button>
+                    `;
+                });
+            }
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+            renderHeroSlideshow(true);
+            resetSlideTimer();
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + heroSlides.length) % heroSlides.length;
+            renderHeroSlideshow(true);
+            resetSlideTimer();
+        }
+
+        function goToSlide(idx) {
+            currentSlideIndex = idx;
+            renderHeroSlideshow(true);
+            resetSlideTimer();
+        }
+
+        function resetSlideTimer() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+                renderHeroSlideshow(false);
+            }, 6000);
+        }
+
+        function initScrollObserver() {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        function navigateTo(pageName) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+            document.getElementById('page-' + pageName).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (pageName === 'landing') {
+                applySEO("Property Malang Raya - Portal Terpadu Tanah, Rumah & Villa Malang Raya", "Cari dan temukan tanah kavling SHM, rumah siap huni, dan villa eksklusif berhawa sejuk di Malang Raya.", "properti malang, tanah kavling malang, rumah malang, villa batu");
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest || !e.target.closest('#dynamic-flat-nav')) closeNavDropdowns();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeNavDropdowns();
+        });
+
+        populateFlatNav();
+                renderHeroSlideshow();
+                resetSlideTimer();
+                renderLandingGrid();
+                renderTestimonials();
+                setTimeout(initScrollObserver, 100);
+            }
+            if (pageName === 'katalog') {
+                applySEO("Katalog Portofolio Proyek Malang Raya - Tanah, Rumah & Villa", "Daftar lengkap pilihan profil proyek terbaik di Kota Malang, Kabupaten Malang, dan Kota Batu.", "profil proyek malang, katalog properti malang, kavling malang");
+                if (slideInterval) clearInterval(slideInterval);
+                renderCatalogImageMenu(properties);
+                renderCatalogProfileGrid(properties);
+            }
+            if (pageName === 'tahap') {
+                applySEO("Daftar Tahap Proyek - Property Malang Raya", "Pilih tahap proyek (tahap, harga, spesifikasi) sebelum melihat detail lengkapnya.", "tahap proyek, tahap green garden, kavling malang");
+                if (slideInterval) clearInterval(slideInterval);
+            }
+            if (pageName === 'artikel') {
+                applySEO("Artikel & Berita Properti Malang Raya - Tips Investasi", "Wawasan, panduan hukum tanah kavling, dan informasi perkembangan properti terbaru di Malang Raya.", "artikel properti malang, tips investasi tanah, berita properti");
+                if (slideInterval) clearInterval(slideInterval);
+                renderArticlesGrid();
+            }
+        }
+
+        function filterByArea(cityName) {
+            navigateTo('katalog');
+            const filtered = properties.filter(p => p.kota === cityName);
+            renderCatalogProfileGrid(filtered.length > 0 ? filtered : properties);
+        }
+
+        function renderLandingGrid() {
+            const grid = document.getElementById('landing-property-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            properties.slice(0, 3).forEach(item => {
+                const mainFoto = (item.fotos && item.fotos.length > 0) ? item.fotos[0] : 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914';
+                grid.innerHTML += `
+                    <div onclick="showDetail(${item.id})" class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-200 hover:shadow-2xl hover:-translate-y-2 transition duration-300 cursor-pointer flex flex-col justify-between group">
+                        <div>
+                            <div class="h-64 sm:h-72 relative overflow-hidden bg-gray-900">
+                                <img src="${mainFoto}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <span class="absolute top-3 left-3 bg-amber-500 text-gray-950 text-xs font-black px-3 py-1 rounded-full shadow">${item.badge || '🔥 Hot Deal'}</span>
+                                <span class="absolute top-3 right-3 bg-black/70 text-white text-xs font-bold px-3 py-1 rounded-full">${item.kota}</span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">${item.kategori}</span>
+                                <h4 class="text-xl font-bold text-gray-900 mt-1 mb-2 group-hover:text-emerald-700 transition">${item.nama}</h4>
+                                <p class="text-gray-600 text-sm line-clamp-2">${item.deskripsi}</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-end border-t border-gray-100 mt-4 pt-4">
+                            <span class="text-xs font-bold text-emerald-600 flex items-center gap-1 group-hover:translate-x-1 transition">Lihat Detail &rarr;</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderTestimonials() {
+            const container = document.getElementById('landing-testimonial-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            testimonials.forEach(t => {
+                let stars = '';
+                for (let i = 0; i < t.rating; i++) stars += '<i class="fa-solid fa-star"></i>';
+                container.innerHTML += `
+                    <div class="bg-emerald-900/50 backdrop-blur border border-emerald-800 p-8 rounded-3xl shadow-lg flex flex-col justify-between hover:border-amber-400 hover:scale-[1.02] transition duration-300">
+                        <div>
+                            <div class="text-amber-400 text-sm mb-4">${stars}</div>
+                            <p class="text-emerald-100 text-base italic mb-6 leading-relaxed">"${t.ulasan}"</p>
+                        </div>
+                        <div class="flex items-center gap-4 pt-4 border-t border-emerald-800/80">
+                            <div class="w-12 h-12 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center font-black text-base shadow">
+                                ${t.nama.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="font-bold text-white text-sm">${t.nama}</p>
+                                <p class="text-xs text-emerald-300">${t.peran}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderCatalogImageMenu(list) {
+            const menuGrid = document.getElementById('catalog-image-menu-grid');
+            if (!menuGrid) return;
+            menuGrid.innerHTML = '';
+            list.forEach(item => {
+                const mainFoto = (item.fotos && item.fotos.length > 0) ? item.fotos[0] : 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914';
+                menuGrid.innerHTML += `
+                    <div onclick="scrollToProject(${item.id})" class="group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer h-72 border border-gray-200 hover:shadow-2xl transition duration-300">
+                        <img src="${mainFoto}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+                        <div class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            ${item.kategori} • ${item.kota}
+                        </div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                            <h4 class="text-xl font-black group-hover:text-amber-300 transition">${item.nama}</h4>
+                            <p class="text-amber-400 font-extrabold text-sm">${item.harga}</p>
+                            <div class="pt-2 flex items-center gap-1 text-xs font-bold text-gray-300 group-hover:text-white">
+                                <span>Lihat Profil Proyek &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function scrollToProject(id) {
+            const el = document.getElementById('project-profile-card-' + id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.classList.add('ring-4', 'ring-emerald-500');
+                setTimeout(() => el.classList.remove('ring-4', 'ring-emerald-500'), 2000);
+            }
+        }
+
+        function renderCatalogProfileGrid(list) {
+            const grid = document.getElementById('catalog-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            list.forEach(item => {
+                const mainFoto = (item.fotos && item.fotos.length > 0) ? item.fotos[0] : 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914';
+                const waMessage = encodeURIComponent(`Halo, saya tertarik dengan proyek ${item.nama} (${item.harga}) di ${item.kota}, Malang Raya.`);
+                const waLink = `https://wa.me/${sosmed.wa}?text=${waMessage}`;
+                
+                grid.innerHTML += `
+                    <div id="project-profile-card-${item.id}" class="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden transition duration-300">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                            <div class="lg:col-span-5 relative min-h-[300px] bg-gray-900">
+                                <img src="${mainFoto}" class="w-full h-full object-cover">
+                                <span class="absolute top-4 left-4 bg-amber-500 text-gray-950 text-xs font-black px-3 py-1.5 rounded-full shadow">${item.badge || '🔥 Hot Deal'}</span>
+                                <span class="absolute top-4 right-4 bg-black/70 text-white text-xs font-bold px-3 py-1.5 rounded-full">${item.kota}</span>
+                            </div>
+                            <div class="lg:col-span-7 p-8 sm:p-10 flex flex-col justify-between space-y-6">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full">${item.kategori} Development</span>
+                                        <span class="text-xl font-black text-emerald-700">${item.harga}</span>
+                                    </div>
+                                    <h3 class="text-2xl sm:text-3xl font-black text-gray-900 mb-3">${item.nama}</h3>
+                                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">${item.deskripsi}</p>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                                    <button onclick="showDetail(${item.id})" class="flex-1 bg-gray-900 hover:bg-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl text-sm transition shadow flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-book-open"></i> Profil Lengkap & Peta Lokasi
+                                    </button>
+                                    <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl text-sm transition shadow flex items-center justify-center gap-2">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i> Konsultasi Proyek
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function resetCatalogFilter() {
+            renderCatalogProfileGrid(properties);
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
+        function stageTitle(prop, st) {
+            const custom = (st.judul || '').trim();
+            return custom ? custom : `${prop.nama} Tahap ${st.tahap}`;
+        }
+
+        function stageFoto(prop, st) {
+            if (st && st.fotos && st.fotos.length > 0) return st.fotos[0];
+            return (prop.fotos && prop.fotos.length > 0) ? prop.fotos[0] : '';
+        }
+
+        function showDetail(id) {
+            const item = properties.find(p => p.id === id);
+            if (!item) return;
+            if (item.tahap && item.tahap.length > 0) {
+                showTahapList(id);
+                return;
+            }
+            renderDetailPage(item, item.nama, 'katalog', 'Kembali ke Profil Proyek');
+        }
+
+        function showTahapList(propId) {
+            const item = properties.find(p => p.id === propId);
+            if (!item || !item.tahap || item.tahap.length === 0) return;
+            navigateTo('tahap');
+
+            const titleEl = document.getElementById('tahap-page-title');
+            const subEl = document.getElementById('tahap-page-sub');
+            const grid = document.getElementById('tahap-grid');
+            if (titleEl) titleEl.innerText = item.nama;
+            if (subEl) subEl.innerText = `${item.tahap.length} tahap tersedia • ${item.kategori} • ${item.kota}, Malang Raya`;
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            item.tahap.forEach(st => {
+                grid.innerHTML += `
+                    <div onclick="showStageDetail(${propId}, ${st.id})" class="bg-white rounded-3xl overflow-hidden shadow-md border border-gray-200 hover:shadow-2xl hover:-translate-y-2 transition duration-300 cursor-pointer group">
+                        <div class="h-56 relative overflow-hidden bg-gray-900">
+                            <img src="${stageFoto(item, st)}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-full shadow"><i class="fa-solid fa-layer-group mr-1"></i> Tahap ${st.tahap}</span>
+                            <span class="absolute top-3 right-3 bg-black/70 text-white text-xs font-bold px-3 py-1 rounded-full">${st.badge || item.badge || item.kota}</span>
+                        </div>
+                        <div class="p-6">
+                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">${st.kategori || item.kategori} • ${st.kota || item.kota}</span>
+                            <h4 class="text-xl font-bold text-gray-900 mt-1 mb-2 group-hover:text-emerald-700 transition">${stageTitle(item, st)}</h4>
+                            <p class="text-gray-600 text-sm line-clamp-2">${st.deskripsi || item.deskripsi}</p>
+                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                                <span class="text-lg font-black text-emerald-700">${st.harga || item.harga}</span>
+                                <span class="text-xs font-bold text-emerald-600 group-hover:translate-x-1 transition">Lihat Detail Tahap &rarr;</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function showStageDetail(propId, tahapId) {
+            const item = properties.find(p => p.id === propId);
+            if (!item) return;
+            const st = (item.tahap || []).find(t => t.id === tahapId);
+            if (!st) { showDetail(propId); return; }
+
+            const merged = {
+                ...item,
+                ...st,
+                nama: stageTitle(item, st),
+                fotos: (st.fotos && st.fotos.length > 0) ? st.fotos : item.fotos,
+                video: st.video || item.video,
+                map: st.map || item.map,
+                kota: st.kota || item.kota,
+                kategori: st.kategori || item.kategori,
+                badge: st.badge || item.badge
+            };
+            renderDetailPage(merged, merged.nama, 'tahap', 'Kembali ke Daftar Tahap', item.nama);
+        }
+
+        function renderDetailPage(item, title, backPage, backLabel, projectName) {
+            navigateTo('detail');
+
+            const backBtn = document.getElementById('detail-back-btn');
+            const backLabelEl = document.getElementById('detail-back-label');
+            if (backBtn) backBtn.setAttribute('onclick', `navigateTo('${backPage}')`);
+            if (backLabelEl) backLabelEl.innerText = backLabel;
+
+            let videoHTML = (item.video) ? `<div class="mt-8"><h4 class="text-lg font-bold text-gray-900 mb-3">Video Tur Proyek</h4><div class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden shadow bg-black"><iframe src="${item.video}" class="w-full h-full" allowfullscreen></iframe></div></div>` : '';
+            let mapHTML = (item.map) ? `<div class="mt-8"><h4 class="text-lg font-bold text-gray-900 mb-3">Peta Lokasi Google Maps</h4><div class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden shadow border"><iframe src="${item.map}" class="w-full h-full border-0" allowfullscreen></iframe></div></div>` : '';
+            let projectHTML = projectName ? `<p class="text-gray-500 text-sm mt-1"><i class="fa-solid fa-city mr-1 text-emerald-500"></i> Proyek: <span class="font-bold text-gray-700">${projectName}</span> • ${item.kota}, Malang Raya</p>` : `<p class="text-gray-500 text-sm mt-1">${item.kota}, Malang Raya</p>`;
+            let fotoHTML = '';
+            if (item.fotos && item.fotos.length > 0) {
+                const thumbs = item.fotos.map((f, i) => `<img src="${f}" onclick="setDetailFoto(this)" class="detail-thumb w-24 h-16 object-cover rounded-xl cursor-pointer border-2 ${i === 0 ? 'border-emerald-500' : 'border-transparent'} hover:border-emerald-400 transition shrink-0">`).join('');
+                fotoHTML = `<div class="mb-8">
+                    <div class="rounded-3xl overflow-hidden h-80 sm:h-[480px] bg-black"><img id="detail-main-foto" src="${item.fotos[0]}" class="w-full h-full object-cover"></div>
+                    ${item.fotos.length > 1 ? `<div class="flex gap-3 mt-3 overflow-x-auto pb-1">${thumbs}</div>` : ''}
+                </div>`;
+            }
+
+            document.getElementById('detail-card-content').innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <span class="bg-amber-500 text-gray-950 text-xs font-black px-3 py-1 rounded-full">${item.badge || '🔥 Hot Deal'}</span>
+                        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 mt-2">${title}</h2>
+                        ${projectHTML}
+                    </div>
+                    <span class="text-2xl font-black text-emerald-600">${item.harga}</span>
+                </div>
+                ${fotoHTML}
+                <p class="text-gray-700 leading-relaxed whitespace-pre-line text-sm sm:text-base">${item.deskripsi}</p>
+                ${mapHTML}
+                ${videoHTML}
+            `;
+        }
+
+        function setDetailFoto(thumb) {
+            const main = document.getElementById('detail-main-foto');
+            if (main) main.src = thumb.getAttribute('src');
+            document.querySelectorAll('.detail-thumb').forEach(t => {
+                const active = t === thumb;
+                t.classList.toggle('border-emerald-500', active);
+                t.classList.toggle('border-transparent', !active);
+            });
+        }
+
+        function renderArticlesGrid() {
+            const grid = document.getElementById('articles-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            if (articles.length === 0) {
+                grid.innerHTML = `<p class="text-gray-500 italic col-span-3 text-center py-8">Belum ada artikel yang dipublikasikan.</p>`;
+                return;
+            }
+            articles.forEach(art => {
+                grid.innerHTML += `
+                    <div onclick="showArticleDetail(${art.id})" class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition cursor-pointer flex flex-col justify-between">
+                        <div>
+                            <div class="h-56 sm:h-64 relative overflow-hidden bg-gray-900">
+                                <img src="${art.foto}" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow"><i class="fa-solid fa-newspaper mr-1"></i> Artikel</span>
+                            </div>
+                            <div class="p-6">
+                                <span class="text-xs text-gray-400 font-semibold mb-2 block"><i class="fa-regular fa-calendar mr-1"></i> ${art.tanggal}</span>
+                                <h4 class="text-xl font-bold text-gray-900 mb-3">${art.judul}</h4>
+                                <p class="text-gray-600 text-sm line-clamp-2">${art.deskripsiSingkat || art.konten}</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-end border-t border-gray-100 mt-4 pt-4">
+                            <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">Baca Selengkapnya &rarr;</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function showArticleDetail(id) {
+            const art = articles.find(a => a.id === id);
+            if (!art) return;
+            navigateTo('article-detail');
+
+            let videoHTML = (art.video) ? `
+                <div class="mt-8 space-y-3">
+                    <h4 class="text-lg font-bold text-gray-900"><i class="fa-brands fa-youtube text-red-600 mr-2"></i> Video Terkait</h4>
+                    <div class="w-full h-72 sm:h-96 rounded-2xl overflow-hidden shadow bg-black">
+                        <iframe src="${art.video}" class="w-full h-full" allowfullscreen></iframe>
+                    </div>
+                </div>
+            ` : '';
+
+            document.getElementById('article-detail-content').innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 text-xs text-emerald-600 font-bold uppercase tracking-widest">
+                        <span><i class="fa-regular fa-calendar mr-1"></i> ${art.tanggal}</span>
+                        <span>•</span>
+                        <span>Wawasan Properti Malang Raya</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl font-black text-gray-900 leading-tight">${art.judul}</h1>
+                </div>
+
+                <div class="rounded-3xl overflow-hidden h-80 sm:h-[480px] shadow-lg bg-black">
+                    <img src="${art.foto}" class="w-full h-full object-cover">
+                </div>
+
+                <div class="prose max-w-none text-gray-700 text-base sm:text-lg leading-relaxed space-y-4">
+                    <p class="font-semibold text-emerald-800 text-lg bg-emerald-50 p-4 rounded-2xl border border-emerald-100">${art.deskripsiSingkat || ''}</p>
+                    <p>${art.konten}</p>
+                </div>
+
+                ${videoHTML}
+            `;
+        }
+
+        applyDynamicSosmed();
+        // Header scroll transparency and text contrast toggle
+        // Header scroll transparency and text contrast toggle
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            const logoTitle = document.getElementById('header-logo-title');
+            const logoSubtitle = document.getElementById('header-logo-subtitle');
+            const navContainer = document.getElementById('flat-nav-pill');
+            const navBtns = document.querySelectorAll('.nav-menu-btn');
+            if (!header) return;
+
+            if (window.scrollY > 40) {
+                header.classList.remove('bg-white/95', 'text-gray-950', 'border-emerald-100', 'shadow-md');
+                header.classList.add('bg-gray-950/90', 'backdrop-blur-md', 'text-white', 'border-white/10', 'shadow-xl');
+                if (logoTitle) {
+                    logoTitle.classList.remove('text-gray-950');
+                    logoTitle.classList.add('text-white');
+                }
+                if (logoSubtitle) {
+                    logoSubtitle.classList.remove('text-gray-500');
+                    logoSubtitle.classList.add('text-emerald-300');
+                }
+                if (navContainer) {
+                    navContainer.classList.remove('bg-emerald-50/70');
+                    navContainer.classList.add('bg-emerald-900/50');
+                }
+                navBtns.forEach(btn => {
+                    btn.classList.remove('text-gray-800', 'hover:bg-white', 'hover:text-emerald-700');
+                    btn.classList.add('text-gray-200', 'hover:bg-emerald-800', 'hover:text-white');
+                });
+            } else {
+                header.classList.remove('bg-gray-950/90', 'backdrop-blur-md', 'text-white', 'border-white/10', 'shadow-xl');
+                header.classList.add('bg-white/95', 'text-gray-950', 'border-emerald-100', 'shadow-md');
+                if (logoTitle) {
+                    logoTitle.classList.remove('text-white');
+                    logoTitle.classList.add('text-gray-950');
+                }
+                if (logoSubtitle) {
+                    logoSubtitle.classList.remove('text-emerald-300');
+                    logoSubtitle.classList.add('text-gray-500');
+                }
+                if (navContainer) {
+                    navContainer.classList.remove('bg-emerald-900/50');
+                    navContainer.classList.add('bg-emerald-50/70');
+                }
+                navBtns.forEach(btn => {
+                    btn.classList.remove('text-gray-200', 'hover:bg-emerald-800', 'hover:text-white');
+                    btn.classList.add('text-gray-800', 'hover:bg-white', 'hover:text-emerald-700');
+                });
+            }
+        });
+        populateFlatNav();
+        renderHeroSlideshow();
+        resetSlideTimer();
+        renderLandingGrid();
+        renderTestimonials();
+        setTimeout(initScrollObserver, 100);
+    </script>
+</body>
+</html>

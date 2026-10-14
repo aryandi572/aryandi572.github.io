@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Property Malang Raya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                            950: '#022c22',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased">
+
+    <!-- ADMIN HEADER -->
+    <header class="bg-gray-900 text-white shadow">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-600 text-white p-2.5 rounded-xl font-bold text-xl">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-black">Admin Panel <span class="text-emerald-400">Property Malang Raya</span></h1>
+                    <p class="text-xs text-gray-400">Kelola Properti, Artikel & Media Sosial (IG, FB, WA)</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <span id="data-source-badge" class="hidden items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-xl text-xs font-bold"></span>
+                <button onclick="exportDataFile('json')" title="Simpan data saat ini ke file data.json" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-file-code"></i> Unduh data.json
+                </button>
+                <button onclick="exportDataFile('js')" title="Simpan data saat ini ke file data.js (untuk halaman via file://)" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-code"></i> Unduh data.js
+                </button>
+                <button onclick="resetToSeed()" title="Hapus perubahan admin dan kembali ke data.json" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Reset ke data.json
+                </button>
+                <a href="index.html" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-globe"></i> Lihat Website Publik
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ADMIN MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 py-10 space-y-8">
+        
+        <!-- Admin Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 sm:gap-3 bg-white p-3 rounded-2xl shadow-sm border border-gray-200">
+            <button onclick="switchAdminTab('properti')" id="btn-tab-properti" class="admin-tab-btn bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition">Kelola Properti</button>
+            <button onclick="switchAdminTab('artikel')" id="btn-tab-artikel" class="admin-tab-btn bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm transition hover:bg-gray-200">Kelola Artikel</button>
+            <button onclick="switchAdminTab('sosmed')" id="btn-tab-sosmed" class="admin-tab-btn bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm transition hover:bg-gray-200">Pengaturan Kontak & Sosmed (IG, FB, WA)</button>
+            <button onclick="switchAdminTab('testimoni')" id="btn-tab-testimoni" class="admin-tab-btn bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm transition hover:bg-gray-200">Kelola Testimoni</button>
+            <button onclick="switchAdminTab('tahap')" id="btn-tab-tahap" class="admin-tab-btn bg-gray-100 text-gray-700 px-5 py-2.5 rounded-xl font-bold text-sm transition hover:bg-gray-200">Kelola Tahap Proyek</button>
+        </div>
+
+        <!-- SECTION 1: PROPERTI -->
+        <div id="admin-sec-properti" class="admin-section space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Daftar Properti & Proyek Malang Raya</h3>
+                    <p class="text-xs text-gray-500">Tambah atau ubah listing proyek yang otomatis tampil di header menu website publik.</p>
+                </div>
+                <button onclick="openPropModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Properti Baru
+                </button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+                            <th class="p-4">Properti</th>
+                            <th class="p-4">Kategori & Kota</th>
+                            <th class="p-4">Harga</th>
+                            <th class="p-4 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-prop-tbody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ARTIKEL -->
+        <div id="admin-sec-artikel" class="admin-section hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Kelola Artikel & Berita Properti</h3>
+                    <p class="text-xs text-gray-500">Tambah panduan investasi, tips KPR, dan berita properti terbaru.</p>
+                </div>
+                <button onclick="openArtModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Artikel Baru
+                </button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+                            <th class="p-4">Judul Artikel</th>
+                            <th class="p-4">Tanggal</th>
+                            <th class="p-4 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-art-tbody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PENGATURAN SOSMED & KONTAK (IG, FB, WA) -->
+        <div id="admin-sec-sosmed" class="admin-section hidden space-y-6">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-2xl">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Pengaturan Akun Sosial Media & WhatsApp</h3>
+                <p class="text-xs text-gray-500 mb-6">Tautan Instagram, Facebook, dan nomor WhatsApp akan otomatis terhubung ke seluruh tombol chat dan footer di website publik.</p>
+                <form onsubmit="saveSosmedSettings(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1"><i class="fa-brands fa-whatsapp text-green-600 mr-1"></i> Nomor WhatsApp Admin (format: 628xxxxxxxxxx)</label>
+                        <input type="text" id="setting-wa" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="6281234567890">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1"><i class="fa-brands fa-instagram text-pink-600 mr-1"></i> Username / URL Instagram</label>
+                        <input type="text" id="setting-ig" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://instagram.com/malangrayaproperty">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1"><i class="fa-brands fa-facebook text-blue-600 mr-1"></i> Link Halaman Facebook</label>
+                        <input type="text" id="setting-fb" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://facebook.com/malangrayaproperty">
+                    </div>
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow transition">Simpan Pengaturan Sosmed</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SECTION 4: TESTIMONI -->
+        <div id="admin-sec-testimoni" class="admin-section hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Kelola Testimoni Klien</h3>
+                    <p class="text-xs text-gray-500">Ulasan investor dan pembeli properti.</p>
+                </div>
+                <button onclick="openTestimoniModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Testimoni Baru
+                </button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+                            <th class="p-4">Nama Klien</th>
+                            <th class="p-4">Peran</th>
+                            <th class="p-4">Rating</th>
+                            <th class="p-4 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-testi-tbody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 5: TAHAP PROYEK -->
+        <div id="admin-sec-tahap" class="admin-section hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Kelola Tahap Proyek</h3>
+                    <p class="text-xs text-gray-500">Judul tahap otomatis: <b>Nama Proyek + "Tahap N"</b> (contoh: Rumah Villa Green Garden Tahap 6). Kosongkan kolom judul untuk memakai nama proyek.</p>
+                </div>
+                <button onclick="openTahapModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-xl text-sm transition shadow flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Tambah Tahap Baru
+                </button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-xs font-bold text-gray-500 uppercase">
+                            <th class="p-4">Judul Tahap</th>
+                            <th class="p-4">Proyek</th>
+                            <th class="p-4">Harga</th>
+                            <th class="p-4 text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-tahap-tbody" class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL PROPERTI -->
+    <div id="prop-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 id="prop-modal-title" class="text-xl font-bold mb-6">Tambah Properti / Proyek</h3>
+            <form onsubmit="saveProperty(event)" class="space-y-4">
+                <input type="hidden" id="form-prop-id">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Nama Proyek / Properti (Tampil di Header)</label>
+                    <input type="text" id="form-prop-nama" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Contoh: Rumah Villa Mezanine">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Nama Menu Header (opsional, pendek)</label>
+                        <input type="text" id="form-prop-menulabel" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Mezanine">
+                    </div>
+                    <div class="flex items-end pb-3">
+                        <label class="flex items-center gap-2 text-xs font-bold uppercase text-gray-700 cursor-pointer">
+                            <input type="checkbox" id="form-prop-menuheader" checked class="w-4 h-4 accent-emerald-600"> Tampil di menu header
+                        </label>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Kategori</label>
+                        <select id="form-prop-kategori" class="w-full border rounded-xl p-3 text-sm outline-none">
+                            <option value="Villa">Villa</option>
+                            <option value="Rumah Villa">Rumah Villa</option>
+                            <option value="Rumah">Rumah</option>
+                            <option value="Tanah Kavling">Tanah Kavling</option>
+                            <option value="Tanah">Tanah</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Kota / Wilayah</label>
+                        <select id="form-prop-kota" class="w-full border rounded-xl p-3 text-sm outline-none">
+                            <option value="Kota Batu">Kota Batu</option>
+                            <option value="Kota Malang">Kota Malang</option>
+                            <option value="Kabupaten Malang">Kabupaten Malang</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Label Badge (Tampil di Foto)</label>
+                    <input type="text" id="form-prop-badge" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="🔥 Hot Deal">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Harga (Angka)</label>
+                        <input type="number" id="form-prop-harganum" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="1250000000">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Label Harga (Teks)</label>
+                        <input type="text" id="form-prop-hargateks" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Rp 1,25 Miliar">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">URL Foto (1 URL per baris)</label>
+                    <textarea id="form-prop-fotos" rows="3" required class="w-full border rounded-xl p-3 text-sm outline-none"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">URL Video YouTube (embed)</label>
+                        <input type="url" id="form-prop-video" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://www.youtube.com/embed/xxxx">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">URL Google Maps (embed)</label>
+                        <input type="url" id="form-prop-map" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://www.google.com/maps/embed?pb=...">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Deskripsi Proyek</label>
+                    <textarea id="form-prop-desc" rows="3" required class="w-full border rounded-xl p-3 text-sm outline-none"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closePropModal()" class="bg-gray-100 px-5 py-2.5 rounded-xl font-bold text-sm">Batal</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow">Simpan Properti</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ARTIKEL -->
+    <div id="art-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold mb-6">Tambah / Edit Artikel</h3>
+            <form onsubmit="saveArticle(event)" class="space-y-4">
+                <input type="hidden" id="form-art-id">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Judul Artikel</label>
+                    <input type="text" id="form-art-judul" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Tips Membeli Tanah Kavling...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Tanggal</label>
+                    <input type="text" id="form-art-tanggal" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="14 Oktober 2026">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">URL Foto Sampul</label>
+                    <input type="url" id="form-art-foto" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Deskripsi Singkat (Preview Kartu)</label>
+                    <textarea id="form-art-deskripsi" rows="2" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Ringkasan singkat yang tampil di kartu artikel..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">URL Video YouTube (opsional, embed)</label>
+                    <input type="url" id="form-art-video" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://www.youtube.com/embed/xxxx">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Isi Konten Artikel</label>
+                    <textarea id="form-art-konten" rows="4" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Tulis ringkasan atau isi artikel di sini..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeArtModal()" class="bg-gray-100 px-5 py-2.5 rounded-xl font-bold text-sm">Batal</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow">Simpan Artikel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TESTIMONI -->
+    <div id="testi-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold mb-6">Tambah / Edit Testimoni</h3>
+            <form onsubmit="saveTestimoni(event)" class="space-y-4">
+                <input type="hidden" id="form-testi-id">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Nama Klien</label>
+                    <input type="text" id="form-testi-nama" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Bpk. Hendra Kusuma">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Peran / Profesi</label>
+                    <input type="text" id="form-testi-peran" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Investor Kavling Kota Malang">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Rating (1-5)</label>
+                    <select id="form-testi-rating" class="w-full border rounded-xl p-3 text-sm outline-none">
+                        <option value="5">5 - Sangat Puas</option>
+                        <option value="4">4 - Puas</option>
+                        <option value="3">3 - Cukup</option>
+                        <option value="2">2 - Kurang</option>
+                        <option value="1">1 - Buruk</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Ulasan</label>
+                    <textarea id="form-testi-ulasan" rows="3" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Tulis ulasan klien..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeTestimoniModal()" class="bg-gray-100 px-5 py-2.5 rounded-xl font-bold text-sm">Batal</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow">Simpan Testimoni</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TAHAP PROYEK -->
+    <div id="tahap-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h3 class="text-xl font-bold mb-2">Tambah / Edit Tahap Proyek</h3>
+            <p class="text-xs text-gray-500 mb-6">Judul tampil otomatis: <b id="tahap-preview-title">Nama Proyek + Tahap N</b></p>
+            <form onsubmit="saveTahap(event)" class="space-y-4">
+                <input type="hidden" id="form-tahap-propid">
+                <input type="hidden" id="form-tahap-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Proyek</label>
+                        <select id="form-tahap-projek" required class="w-full border rounded-xl p-3 text-sm outline-none"></select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Nomor Tahap</label>
+                        <input type="number" id="form-tahap-nomor" required min="1" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="6">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Judul Custom (opsional - kosongkan untuk pakai nama proyek)</label>
+                    <input type="text" id="form-tahap-judul" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="otomatis: Rumah Villa Green Garden Tahap 6">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Badge Label</label>
+                        <input type="text" id="form-tahap-badge" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="🔥 Hot Deal">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">Label Harga (Teks)</label>
+                        <input type="text" id="form-tahap-hargateks" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Rp 875 Juta">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Harga (Angka)</label>
+                    <input type="number" id="form-tahap-harganum" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="875000000">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">URL Foto Tahap (1 URL per baris, opsional - fallback ke foto proyek)</label>
+                    <textarea id="form-tahap-fotos" rows="3" class="w-full border rounded-xl p-3 text-sm outline-none"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">URL Video YouTube (opsional)</label>
+                        <input type="url" id="form-tahap-video" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://www.youtube.com/embed/xxxx">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-1">URL Google Maps (opsional)</label>
+                        <input type="url" id="form-tahap-map" class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="https://www.google.com/maps/embed?pb=...">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Deskripsi Tahap</label>
+                    <textarea id="form-tahap-desc" rows="3" required class="w-full border rounded-xl p-3 text-sm outline-none" placeholder="Spesifikasi unit pada tahap ini..."></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeTahapModal()" class="bg-gray-100 px-5 py-2.5 rounded-xl font-bold text-sm">Batal</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow">Simpan Tahap</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN SCRIPTS -->
+    <script src="data.js"></script>
+    <script>
+        const SEED = window.SEED_DATA || {};
+        const LS_KEY = {
+            properties: 'malangraya_properties',
+            articles: 'malangraya_articles',
+            testimonials: 'malangraya_testimonials',
+            sosmed: 'malangraya_sosmed'
+        };
+        const LS = (key) => { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; } };
+        const hasLocalData = () => Object.values(LS_KEY).some(k => localStorage.getItem(k));
+        const DATA_VERSION = 5;
+        try {
+            if (parseInt(localStorage.getItem('malangraya_data_version') || '0', 10) < DATA_VERSION) {
+                Object.values(LS_KEY).forEach(k => localStorage.removeItem(k));
+                localStorage.setItem('malangraya_data_version', String(DATA_VERSION));
+            }
+        } catch (e) {}
+
+        let properties = LS(LS_KEY.properties) || JSON.parse(JSON.stringify(SEED.properties || []));
+        let articles = LS(LS_KEY.articles) || JSON.parse(JSON.stringify(SEED.articles || []));
+        let testimonials = LS(LS_KEY.testimonials) || JSON.parse(JSON.stringify(SEED.testimonials || []));
+        let sosmed = LS(LS_KEY.sosmed) || JSON.parse(JSON.stringify(SEED.sosmed || { wa: '6281234567890', ig: 'https://instagram.com/malangrayaproperty', fb: 'https://facebook.com/malangrayaproperty' }));
+
+        // Load sosmed settings into form
+        document.getElementById('setting-wa').value = sosmed.wa;
+        document.getElementById('setting-ig').value = sosmed.ig;
+        document.getElementById('setting-fb').value = sosmed.fb;
+
+        function saveData() {
+            localStorage.setItem(LS_KEY.properties, JSON.stringify(properties));
+            localStorage.setItem(LS_KEY.articles, JSON.stringify(articles));
+            localStorage.setItem(LS_KEY.testimonials, JSON.stringify(testimonials));
+            localStorage.setItem(LS_KEY.sosmed, JSON.stringify(sosmed));
+            updateSourceBadge();
+        }
+
+        function updateSourceBadge() {
+            const badge = document.getElementById('data-source-badge');
+            if (!badge) return;
+            badge.classList.remove('hidden', 'flex');
+            badge.classList.add('flex');
+            if (hasLocalData()) {
+                badge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Sumber: perubahan admin tersimpan (localStorage) + seed data.json';
+            } else {
+                badge.innerHTML = '<i class="fa-solid fa-database"></i> Sumber: data.json (bawaan, belum ada perubahan)';
+            }
+        }
+
+        function exportDataFile(kind) {
+            const data = { properties, articles, testimonials, sosmed };
+            let content, fileName, mime;
+            if (kind === 'js') {
+                content = '// AUTO-MIRROR dari data.json (dipakai saat halaman dibuka via file:// sehingga fetch() diblokir).\n// Hasil unduhan dari Admin Panel.\nwindow.SEED_DATA = ' + JSON.stringify(data, null, 4) + ';\n';
+                fileName = 'data.js';
+                mime = 'text/javascript';
+            } else {
+                content = JSON.stringify(data, null, 4);
+                fileName = 'data.json';
+                mime = 'application/json';
+            }
+            const blob = new Blob([content], { type: mime });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+            alert('File ' + fileName + ' berhasil diunduh.\n\nLetakkan file tersebut di folder yang sama dengan index.html untuk menjadikannya data resmi website.');
+        }
+
+        function resetToSeed() {
+            if (!confirm('Hapus semua perubahan admin dan kembali ke data awal data.json?')) return;
+            Object.values(LS_KEY).forEach(k => localStorage.removeItem(k));
+            location.reload();
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            document.getElementById('admin-sec-' + tabName).classList.remove('hidden');
+            document.getElementById('btn-tab-' + tabName).classList.remove('bg-gray-100', 'text-gray-700');
+            document.getElementById('btn-tab-' + tabName).classList.add('bg-emerald-600', 'text-white');
+        }
+
+        function renderAdminTables() {
+            // Render Properties
+            const propTbody = document.getElementById('admin-prop-tbody');
+            propTbody.innerHTML = '';
+            properties.forEach(p => {
+                propTbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-bold">${p.nama}</td>
+                        <td class="p-4">${p.kategori} • ${p.kota}</td>
+                        <td class="p-4 text-emerald-600 font-black">${p.harga}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="editProperty(${p.id})" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold">Edit</button>
+                            <button onclick="deleteProperty(${p.id})" class="text-red-600 bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Render Articles
+            const artTbody = document.getElementById('admin-art-tbody');
+            artTbody.innerHTML = '';
+            articles.forEach(a => {
+                artTbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-bold flex items-center gap-3">
+                            <img src="${a.foto}" class="w-12 h-10 object-cover rounded-lg shadow">
+                            <span>${a.judul}</span>
+                        </td>
+                        <td class="p-4 text-gray-500 text-xs">${a.tanggal}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="editArticle(${a.id})" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold">Edit</button>
+                            <button onclick="deleteArticle(${a.id})" class="text-red-600 bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Render Testimonials
+            const testiTbody = document.getElementById('admin-testi-tbody');
+            testiTbody.innerHTML = '';
+            testimonials.forEach(t => {
+                let stars = '';
+                for (let i = 0; i < t.rating; i++) stars += '<i class="fa-solid fa-star text-amber-400"></i>';
+                testiTbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-4 font-bold">${t.nama}</td>
+                        <td class="p-4 text-gray-500 text-xs">${t.peran}</td>
+                        <td class="p-4">${stars}</td>
+                        <td class="p-4 text-right space-x-2">
+                            <button onclick="editTestimoni(${t.id})" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold">Edit</button>
+                            <button onclick="deleteTestimoni(${t.id})" class="text-red-600 bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            // Render Tahap Proyek
+            const tahapTbody = document.getElementById('admin-tahap-tbody');
+            tahapTbody.innerHTML = '';
+            properties.forEach(p => {
+                (p.tahap || []).forEach(st => {
+                    tahapTbody.innerHTML += `
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-4 font-bold">${escapeHtml(tahapJudul(p, st))}</td>
+                            <td class="p-4 text-gray-500 text-xs">${escapeHtml(p.nama)}</td>
+                            <td class="p-4 text-emerald-600 font-black">${st.harga || '-'}</td>
+                            <td class="p-4 text-right space-x-2">
+                                <button onclick="editTahap(${p.id}, ${st.id})" class="text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold">Edit</button>
+                                <button onclick="deleteTahap(${p.id}, ${st.id})" class="text-red-600 bg-red-50 px-3 py-1.5 rounded-lg text-xs font-bold">Hapus</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            });
+            if (tahapTbody.innerHTML === '') {
+                tahapTbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-gray-400 italic">Belum ada tahap proyek. Klik "Tambah Tahap Baru" untuk membuat.</td></tr>`;
+            }
+        }
+
+        // Tahap Functions
+        function escapeHtml(str) {
+            return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        function tahapJudul(p, st) {
+            const custom = (st.judul || '').trim();
+            return custom ? custom : `${p.nama} Tahap ${st.tahap}`;
+        }
+        function fillTahapProjectSelect(selectedId) {
+            const sel = document.getElementById('form-tahap-projek');
+            sel.innerHTML = properties.map(p => `<option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>${escapeHtml(p.nama)}</option>`).join('');
+            updateTahapPreview();
+        }
+        function updateTahapPreview() {
+            const proj = properties.find(p => p.id == document.getElementById('form-tahap-projek').value);
+            const nomor = document.getElementById('form-tahap-nomor').value || '?';
+            const custom = document.getElementById('form-tahap-judul').value.trim();
+            const el = document.getElementById('tahap-preview-title');
+            if (el) el.innerText = custom ? custom : (proj ? `${proj.nama} Tahap ${nomor}` : `Nama Proyek Tahap ${nomor}`);
+        }
+        function openTahapModal() {
+            document.getElementById('tahap-modal').querySelector('form').reset();
+            document.getElementById('form-tahap-propid').value = '';
+            document.getElementById('form-tahap-id').value = '';
+            fillTahapProjectSelect(properties.length ? properties[0].id : null);
+            document.getElementById('tahap-modal').classList.remove('hidden');
+        }
+        function closeTahapModal() { document.getElementById('tahap-modal').classList.add('hidden'); }
+        function saveTahap(e) {
+            e.preventDefault();
+            const propId = parseInt(document.getElementById('form-tahap-projek').value);
+            const stId = document.getElementById('form-tahap-id').value;
+            const prop = properties.find(p => p.id === propId);
+            if (!prop) { alert('Proyek tidak ditemukan!'); return; }
+
+            const data = {
+                tahap: parseInt(document.getElementById('form-tahap-nomor').value),
+                judul: document.getElementById('form-tahap-judul').value.trim(),
+                badge: document.getElementById('form-tahap-badge').value,
+                harga: document.getElementById('form-tahap-hargateks').value,
+                hargaNum: parseInt(document.getElementById('form-tahap-harganum').value) || 0,
+                fotos: document.getElementById('form-tahap-fotos').value.split('\n').map(s => s.trim()).filter(s => s.length > 0),
+                video: document.getElementById('form-tahap-video').value,
+                map: document.getElementById('form-tahap-map').value,
+                deskripsi: document.getElementById('form-tahap-desc').value
+            };
+
+            prop.tahap = prop.tahap || [];
+            if (stId) {
+                const idx = prop.tahap.findIndex(t => t.id == stId);
+                if (idx !== -1) prop.tahap[idx] = { ...prop.tahap[idx], ...data, id: parseInt(stId) };
+            } else {
+                const allIds = properties.flatMap(p => (p.tahap || []).map(t => t.id));
+                const newId = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
+                prop.tahap.push({ id: newId, ...data });
+                prop.tahap.sort((a, b) => a.tahap - b.tahap);
+            }
+            saveData();
+            closeTahapModal();
+            renderAdminTables();
+            alert(`Tahap tersimpan. Judul: "${tahapJudul(prop, prop.tahap.find(t => t.id == (stId || prop.tahap[prop.tahap.length - 1].id)))}" dan tampil di halaman publik.`);
+        }
+        function editTahap(propId, tahapId) {
+            const prop = properties.find(p => p.id === propId);
+            if (!prop) return;
+            const st = (prop.tahap || []).find(t => t.id === tahapId);
+            if (!st) return;
+            document.getElementById('form-tahap-propid').value = propId;
+            document.getElementById('form-tahap-id').value = st.id;
+            fillTahapProjectSelect(propId);
+            document.getElementById('form-tahap-nomor').value = st.tahap;
+            document.getElementById('form-tahap-judul').value = st.judul || '';
+            document.getElementById('form-tahap-badge').value = st.badge || '';
+            document.getElementById('form-tahap-hargateks').value = st.harga || '';
+            document.getElementById('form-tahap-harganum').value = st.hargaNum || '';
+            document.getElementById('form-tahap-fotos').value = (st.fotos || []).join('\n');
+            document.getElementById('form-tahap-video').value = st.video || '';
+            document.getElementById('form-tahap-map').value = st.map || '';
+            document.getElementById('form-tahap-desc').value = st.deskripsi || '';
+            updateTahapPreview();
+            document.getElementById('tahap-modal').classList.remove('hidden');
+        }
+        function deleteTahap(propId, tahapId) {
+            const prop = properties.find(p => p.id === propId);
+            if (!prop) return;
+            if (!confirm('Yakin ingin menghapus tahap ini?')) return;
+            prop.tahap = (prop.tahap || []).filter(t => t.id !== tahapId);
+            saveData();
+            renderAdminTables();
+        }
+
+        function openTestimoniModal() {
+            document.getElementById('form-testi-id').value = '';
+            document.querySelector('#testi-modal form').reset();
+            document.getElementById('testi-modal').classList.remove('hidden');
+        }
+        function closeTestimoniModal() { document.getElementById('testi-modal').classList.add('hidden'); }
+        function saveTestimoni(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-testi-id').value;
+            const nama = document.getElementById('form-testi-nama').value;
+            const peran = document.getElementById('form-testi-peran').value;
+            const rating = parseInt(document.getElementById('form-testi-rating').value);
+            const ulasan = document.getElementById('form-testi-ulasan').value;
+
+            if (id) {
+                const idx = testimonials.findIndex(t => t.id == id);
+                if (idx !== -1) testimonials[idx] = { ...testimonials[idx], id: parseInt(id), nama, peran, rating, ulasan };
+            } else {
+                const newId = testimonials.length > 0 ? Math.max(...testimonials.map(t => t.id)) + 1 : 1;
+                testimonials.push({ id: newId, nama, peran, rating, ulasan });
+            }
+            saveData();
+            closeTestimoniModal();
+            renderAdminTables();
+            alert('Testimoni berhasil disimpan dan tampil di website publik!');
+        }
+        function editTestimoni(id) {
+            const t = testimonials.find(item => item.id === id);
+            if (!t) return;
+            document.getElementById('form-testi-id').value = t.id;
+            document.getElementById('form-testi-nama').value = t.nama;
+            document.getElementById('form-testi-peran').value = t.peran;
+            document.getElementById('form-testi-rating').value = t.rating;
+            document.getElementById('form-testi-ulasan').value = t.ulasan;
+            document.getElementById('testi-modal').classList.remove('hidden');
+        }
+        function deleteTestimoni(id) {
+            if (confirm('Yakin ingin menghapus testimoni ini?')) {
+                testimonials = testimonials.filter(t => t.id !== id);
+                saveData();
+                renderAdminTables();
+            }
+        }
+
+        // Property Functions
+        function openPropModal() {
+            document.getElementById('form-prop-id').value = '';
+            document.querySelector('#prop-modal form').reset();
+            document.getElementById('prop-modal').classList.remove('hidden');
+        }
+        function closePropModal() { document.getElementById('prop-modal').classList.add('hidden'); }
+        function saveProperty(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-prop-id').value;
+            const nama = document.getElementById('form-prop-nama').value;
+            const kategori = document.getElementById('form-prop-kategori').value;
+            const kota = document.getElementById('form-prop-kota').value;
+            const hargaNum = parseInt(document.getElementById('form-prop-harganum').value);
+            const harga = document.getElementById('form-prop-hargateks').value;
+            const fotos = document.getElementById('form-prop-fotos').value.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+            const deskripsi = document.getElementById('form-prop-desc').value;
+            const badge = document.getElementById('form-prop-badge').value;
+            const video = document.getElementById('form-prop-video').value;
+            const map = document.getElementById('form-prop-map').value;
+            const menuLabel = document.getElementById('form-prop-menulabel').value.trim();
+            const menuHeader = document.getElementById('form-prop-menuheader').checked;
+
+            if (id) {
+                const idx = properties.findIndex(p => p.id == id);
+                if (idx !== -1) properties[idx] = { ...properties[idx], id: parseInt(id), nama, kategori, kota, hargaNum, harga, fotos, deskripsi, badge, video, map, menuLabel, menuHeader };
+            } else {
+                const newId = properties.length > 0 ? Math.max(...properties.map(p => p.id)) + 1 : 1;
+                properties.push({ id: newId, nama, kategori, kota, hargaNum, harga, fotos, deskripsi, badge, video, map, menuLabel, menuHeader, tahap: [] });
+            }
+            saveData();
+            closePropModal();
+            renderAdminTables();
+            alert('Properti berhasil disimpan dan otomatis terhubung ke website publik!');
+        }
+        function editProperty(id) {
+            const p = properties.find(item => item.id === id);
+            if (!p) return;
+            document.getElementById('form-prop-id').value = p.id;
+            document.getElementById('form-prop-nama').value = p.nama;
+            document.getElementById('form-prop-kategori').value = p.kategori;
+            document.getElementById('form-prop-kota').value = p.kota;
+            document.getElementById('form-prop-harganum').value = p.hargaNum;
+            document.getElementById('form-prop-hargateks').value = p.harga;
+            document.getElementById('form-prop-fotos').value = p.fotos ? p.fotos.join('\n') : '';
+            document.getElementById('form-prop-desc').value = p.deskripsi;
+            document.getElementById('form-prop-badge').value = p.badge || '';
+            document.getElementById('form-prop-video').value = p.video || '';
+            document.getElementById('form-prop-map').value = p.map || '';
+            document.getElementById('form-prop-menulabel').value = p.menuLabel || '';
+            document.getElementById('form-prop-menuheader').checked = p.menuHeader !== false;
+            document.getElementById('prop-modal').classList.remove('hidden');
+        }
+        function deleteProperty(id) {
+            if (confirm('Yakin ingin menghapus properti ini?')) {
+                properties = properties.filter(p => p.id !== id);
+                saveData();
+                renderAdminTables();
+            }
+        }
+
+        // Article Functions
+        function openArtModal() {
+            document.getElementById('form-art-id').value = '';
+            document.querySelector('#art-modal form').reset();
+            document.getElementById('art-modal').classList.remove('hidden');
+        }
+        function closeArtModal() { document.getElementById('art-modal').classList.add('hidden'); }
+        function saveArticle(e) {
+            e.preventDefault();
+            const id = document.getElementById('form-art-id').value;
+            const judul = document.getElementById('form-art-judul').value;
+            const tanggal = document.getElementById('form-art-tanggal').value;
+            const foto = document.getElementById('form-art-foto').value;
+            const konten = document.getElementById('form-art-konten').value;
+            const deskripsiSingkat = document.getElementById('form-art-deskripsi').value;
+            const video = document.getElementById('form-art-video').value;
+
+            if (id) {
+                const idx = articles.findIndex(a => a.id == id);
+                if (idx !== -1) articles[idx] = { ...articles[idx], id: parseInt(id), judul, tanggal, foto, konten, deskripsiSingkat, video };
+            } else {
+                const newId = articles.length > 0 ? Math.max(...articles.map(a => a.id)) + 1 : 1;
+                articles.push({ id: newId, judul, tanggal, foto, konten, deskripsiSingkat, video });
+            }
+            saveData();
+            closeArtModal();
+            renderAdminTables();
+            alert('Artikel berhasil disimpan dan otomatis tampil di halaman publik!');
+        }
+        function editArticle(id) {
+            const a = articles.find(item => item.id === id);
+            if (!a) return;
+            document.getElementById('form-art-id').value = a.id;
+            document.getElementById('form-art-judul').value = a.judul;
+            document.getElementById('form-art-tanggal').value = a.tanggal;
+            document.getElementById('form-art-foto').value = a.foto;
+            document.getElementById('form-art-konten').value = a.konten;
+            document.getElementById('form-art-deskripsi').value = a.deskripsiSingkat || '';
+            document.getElementById('form-art-video').value = a.video || '';
+            document.getElementById('art-modal').classList.remove('hidden');
+        }
+        function deleteArticle(id) {
+            if (confirm('Yakin ingin menghapus artikel ini?')) {
+                articles = articles.filter(a => a.id !== id);
+                saveData();
+                renderAdminTables();
+            }
+        }
+
+        // Sosmed Settings
+        function saveSosmedSettings(e) {
+            e.preventDefault();
+            sosmed.wa = document.getElementById('setting-wa').value;
+            sosmed.ig = document.getElementById('setting-ig').value;
+            sosmed.fb = document.getElementById('setting-fb').value;
+            saveData();
+            alert('Pengaturan Sosial Media (IG, FB) dan WhatsApp berhasil disimpan dan terhubung ke seluruh website publik!');
+        }
+
+        renderAdminTables();
+        updateSourceBadge();
+        ['form-tahap-projek', 'form-tahap-nomor', 'form-tahap-judul'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', updateTahapPreview);
+            if (el) el.addEventListener('change', updateTahapPreview);
+        });
+    </script>
+</body>
+</html>
