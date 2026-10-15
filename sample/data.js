@@ -1,0 +1,279 @@
+window.SEED_DATA = {
+    "properties": [
+        {
+            "id": 1,
+            "nama": "Tanah Kavling Lassah Village",
+            "kategori": "Tanah Kavling",
+            "kota": "Kota Malang",
+            "hargaNum": 350000000,
+            "harga": "Rp 350 Juta",
+            "badge": "⏳ Tersisa 2 Unit Lagi",
+            "fotos": [
+                "image/Tanah Kavling Lassah Village.jpeg"
+            ],
+            "video": "https://www.youtube.com/embed/ScMzIvxBSi4",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.4!2d112.61!3d-7.98!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTgnNDguMCJTIDExMsKwMzYnMzYuMCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+            "deskripsi": "Tanah kavling matang siap bangun di area Lassah Village Kota Malang. Luas 120 m² (Lebar depan 8m). Akses jalan perumahan paving lebar 7 meter. Dekat kampus Univ. Merdeka Malang dan Cyber Mall. SHM pecah per kavling.",
+            "tahap": [],
+            "menuLabel": "Lassah Village",
+            "menuHeader": true
+        },
+        {
+            "id": 2,
+            "nama": "Rumah Villa Green Garden",
+            "kategori": "Rumah",
+            "kota": "Kota Batu",
+            "hargaNum": 850000000,
+            "harga": "Rp 850 Juta",
+            "badge": "⭐ Best Investment",
+            "fotos": [
+                "image/Rumah Villa Green Garden Tahap 6.jpeg"
+            ],
+            "video": "https://www.youtube.com/embed/tgbNymZ7vqY",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1!2d112.63!3d-7.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTcnMDAuMCJTIDExMsKwMzcnNDguMCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+            "deskripsi": "Rumah siap huni desain minimalis modern kawasan Green Garden Batu. Luas Tanah 90 m², Luas Bangunan 110 m². 3 Kamar Tidur, 2 Kamar Mandi, carport 2 mobil. One gate system, satpam 24 jam.",
+            "tahap": [
+                {
+                    "id": 1,
+                    "tahap": 6,
+                    "judul": "",
+                    "hargaNum": 875000000,
+                    "harga": "Rp 875 Juta",
+                    "badge": "🔥 Hot Deal",
+                    "fotos": [
+                        "image/Rumah Villa Green Garden Tahap 6.jpeg"
+                    ],
+                    "video": "https://www.youtube.com/embed/tgbNymZ7vqY",
+                    "map": "",
+                    "deskripsi": "Tahap 6 Kawasan Green Garden. 8 unit tersedia, serah terima Desember 2026. Luas Tanah 90 m², Luas Bangunan 110 m², 3 Kamar Tidur, 2 Kamar Mandi, carport 2 mobil. Legalitas SHM & IMB lengkap."
+                },
+                {
+                    "id": 2,
+                    "tahap": 7,
+                    "judul": "",
+                    "hargaNum": 925000000,
+                    "harga": "Rp 925 Juta",
+                    "badge": "⏳ Pre-launch",
+                    "fotos": [
+                        "image/Rumah Konsep Villa Green Garden Tahap 7.jpeg"
+                    ],
+                    "video": "",
+                    "map": "",
+                    "deskripsi": "Tahap 7 Kawasan Green Garden, unit terbatas menghadap taman tengah. Luas Tanah 95 m², Luas Bangunan 115 m², 3 Kamar Tidur, 2 Kamar Mandi, carport 2 mobil dengan kanopi. One gate system dan satpam 24 jam."
+                }
+            ],
+            "menuLabel": "Green Garden",
+            "menuHeader": true
+        },
+        {
+            "id": 3,
+            "nama": "Rumah Villa Mezanine",
+            "kategori": "Rumah Villa",
+            "kota": "Kabupaten Malang",
+            "hargaNum": 1250000000,
+            "harga": "Rp 1,25 Miliar",
+            "badge": "🔥 Hot Deal",
+            "fotos": [
+                "image/Rumah Villa Mezanine 1.jpeg",
+                "image/Rumah Villa Mezanine 2.jpeg"
+            ],
+            "video": "https://www.youtube.com/embed/5qap5aO4i9A",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.981881881882!2d112.518!3d-7.876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTInMzMuNiJTIDExMsKwMzEnMDUuMiJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+            "deskripsi": "Villa 2 lantai berhawa sejuk dengan ruang mezanine di kawasan Kabupaten Malang. Memiliki 3 Kamar Tidur, 2 Kamar Mandi, kolam renang privat, view pegunungan Panderman dan Arjuno. Legalitas SHM & IMB lengkap siap huni atau disewakan homestay.",
+            "tahap": [],
+            "menuLabel": "Mezanine",
+            "menuHeader": true
+        },
+        {
+            "id": 4,
+            "nama": "Tanah Kavling Villa Green Garden",
+            "kategori": "Tanah Kavling",
+            "kota": "Kota Batu",
+            "hargaNum": 425000000,
+            "harga": "Rp 425 Juta",
+            "badge": "⏳ Tersisa 5 Kavling",
+            "fotos": [
+                "image/Tanah Kavling Villa Green Garden.jpeg"
+            ],
+            "video": "",
+            "map": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.1!2d112.63!3d-7.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTcnMDAuMCJTIDExMsKwMzcnNDguMCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid",
+            "deskripsi": "Kavling eksklusif di kawasan Villa Green Garden Batu, siap bangun dengan view pegunungan. SHM pecah per kavling, jalan paving lebar 6 meter.",
+            "tahap": [
+                {
+                    "id": 3,
+                    "tahap": 6,
+                    "judul": "",
+                    "hargaNum": 425000000,
+                    "harga": "Rp 425 Juta",
+                    "badge": "⏳ Tersisa 5 Kavling",
+                    "fotos": [
+                        "image/Tanah Kavling Villa Green Garden Tahap 6.jpeg"
+                    ],
+                    "video": "",
+                    "map": "",
+                    "deskripsi": "Tahap 6 kavling Villa Green Garden. Luas 100 m², lebar depan 8 meter, jalan paving 6 meter. SHM pecah per kavling, siap bangun. Dekat kawasan wisata Batu."
+                },
+                {
+                    "id": 4,
+                    "tahap": 7,
+                    "judul": "",
+                    "hargaNum": 475000000,
+                    "harga": "Rp 475 Juta",
+                    "badge": "🔥 Baru Dibuka",
+                    "fotos": [
+                        "image/Tanah Kavling Villa Green Garden Tahap 7.jpeg"
+                    ],
+                    "video": "",
+                    "map": "",
+                    "deskripsi": "Tahap 7 kavling Villa Green Garden, blok depan menghadap hutan kota. Luas 120 m², lebar depan 10 meter. SHM pecah per kavling, akses jalan 6 meter."
+                }
+            ],
+            "menuLabel": "Green Garden",
+            "menuHeader": true
+        }
+    ],
+    "articles": [
+        {
+            "id": 1,
+            "judul": "5 Keunggulan Utama Berinvestasi Properti di Malang Raya Tahun 2026",
+            "tanggal": "15 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/ScMzIvxBSi4",
+            "deskripsiSingkat": "Analisis mendalam mengenai daya tarik utama Malang Raya sebagai magnet investasi properti di Jawa Timur dengan kenaikan aset konsisten.",
+            "konten": "Malang Raya (Kota Malang, Kabupaten Malang, dan Kota Batu) telah bertransformasi menjadi salah satu destinasi investasi properti paling diburu. Keunggulan utamanya meliputi kawasan dataran tinggi berhawa sejuk, infrastruktur Tol Malang-Pandaan, legalitas SHM 100% aman, potensi passive income pariwisata, serta capital gain tinggi 10-15% per tahun."
+        },
+        {
+            "id": 2,
+            "judul": "Potensi Keuntungan Memiliki Villa Eksklusif di Kota Batu untuk Passive Income",
+            "tanggal": "14 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/5qap5aO4i9A",
+            "deskripsiSingkat": "Mengapa kepemilikan villa di Kota Batu memberikan keuntungan ganda: tempat peristirahatan privat sekaligus sumber pendapatan pasif harian.",
+            "konten": "Kota Batu tidak pernah sepi pengunjung. Daya tarik utama investasi villa di kawasan Songgoriti dan sekitarnya meliputi tingkat okupansi sewa yang tinggi, desain modern dengan view pegunungan, serta sistem manajemen titip kelola homestay profesional."
+        },
+        {
+            "id": 3,
+            "judul": "Alasan Kuat Membeli Tanah Kavling Matang Ber-SHM di Malang",
+            "tanggal": "13 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/ScMzIvxBSi4",
+            "deskripsiSingkat": "Strategi cerdas mengamankan aset masa depan melalui pembelian tanah kavling matang di lokasi berkembang Malang Raya.",
+            "konten": "Tanah kavling minim biaya perawatan dan memiliki likuiditas tinggi. Keunggulan kavling matang di Malang mencakup fasilitas jalan lingkungan paving lebar 7 meter, kontur tanah padat siap bangun tanpa reklamasi, serta lokasi strategis dekat kampus."
+        },
+        {
+            "id": 4,
+            "judul": "Kenyamanan & Keamanan Maksimal di Perumahan Klaster Modern Malang Raya",
+            "tanggal": "12 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/tgbNymZ7vqY",
+            "deskripsiSingkat": "Standar hunian klaster modern di Malang Raya yang memadukan estetika arsitektur kontemporer dengan sistem keamanan terpadu.",
+            "konten": "Membeli unit rumah di dalam perumahan klaster di Malang memberikan nilai tambah berupa one gate system dengan pengamanan CCTV 24 jam, ruang terbuka hijau, taman bermain anak, serta kualitas konstruksi premium tahan gempa."
+        },
+        {
+            "id": 5,
+            "judul": "Dampak Positif Jalan Tol Malang-Pandaan Terhadap Lonjakan Nilai Properti",
+            "tanggal": "11 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/L_LUpnjgPso",
+            "deskripsiSingkat": "Konektivitas tol trans-Jawa bagian timur terbukti menjadi katalisator utama meroketnya harga jual dan sewa properti di Malang Raya.",
+            "konten": "Kehadiran akses Tol Malang-Pandaan mempercepat waktu tempuh Surabaya-Malang menjadi sekitar 1 jam saja. Hal ini memberikan keunggulan berupa lonjakan permintaan hunian bagi pekerja hybrid dan apresiasi harga tanah yang sangat agresif."
+        },
+        {
+            "id": 6,
+            "judul": "Peluang Cuan Sewa dari Properti di Sekitar Kampus Ternama Malang",
+            "tanggal": "10 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80",
+            "video": "",
+            "deskripsiSingkat": "Ketahui keuntungan memiliki properti kos atau rumah kontrakan di sekitar kampus UB, UMM, dan UIN Malang.",
+            "konten": "Sebagai kota pelajar dengan puluhan ribu mahasiswa baru setiap tahunnya, properti di sekitar kampus Malang menawarkan target pasar yang masif, yield sewa yang stabil, serta tingkat kekosongan (vacancy rate) yang sangat rendah."
+        },
+        {
+            "id": 7,
+            "judul": "Perbandingan Membeli Rumah Baru vs Rumah Second di Wilayah Malang Raya",
+            "tanggal": "09 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80",
+            "video": "",
+            "deskripsiSingkat": "Analisis kelebihan pembelian rumah baru dari developer vs rumah second di Malang Raya untuk hunian maupun investasi.",
+            "konten": "Rumah baru menawarkan desain modern minimalis tanpa perlu biaya renovasi awal dan fasilitas klaster lengkap. Di sisi lain, rumah second memberikan keunggulan berupa lokasi matang di tengah kota dengan ukuran tanah yang cenderung lebih luas."
+        },
+        {
+            "id": 8,
+            "judul": "Strategi Jitu Menemukan Lokasi Properti Paling Prospektif di Malang",
+            "tanggal": "08 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/ScMzIvxBSi4",
+            "deskripsiSingkat": "Tips dan trik mengenali titik lokasi properti berprospek tinggi di Kota Malang, Kabupaten Malang, dan Kota Batu.",
+            "konten": "Lokasi adalah faktor nomor satu dalam properti. Daya tarik lokasi emas dapat diidentifikasi melalui Rencana Tata Ruang Wilayah (RTRW), kedekatan dengan fasilitas publik bertaraf internasional, serta kontur tanah yang aman dan bebas banjir."
+        },
+        {
+            "id": 9,
+            "judul": "Urgensi Legalitas SHM dalam Menjamin Keamanan Transaksi Properti",
+            "tanggal": "07 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80",
+            "video": "",
+            "deskripsiSingkat": "Mengapa Sertifikat Hak Milik (SHM) menjadi faktor terpenting saat membeli tanah atau rumah di Malang Raya.",
+            "konten": "Aspek legalitas adalah fondasi utama transaksi properti. Kepemilikan SHM memberikan jaminan kepemilikan mutlak seumur hidup tanpa batas waktu, nilai agunan bank yang tinggi, serta meminimalisir risiko sengketa pertanahan."
+        },
+        {
+            "id": 10,
+            "judul": "Tren Arsitektur & Desain Hunian Tropis Modern di Malang Raya 2026",
+            "tanggal": "06 Oktober 2026",
+            "foto": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=800&q=80",
+            "video": "https://www.youtube.com/embed/tgbNymZ7vqY",
+            "deskripsiSingkat": "Menengok tren arsitektur rumah dan villa di Malang Raya yang mengusung konsep ramah lingkungan dan sirkulasi udara sejuk.",
+            "konten": "Konsumen properti saat ini mengutamakan kenyamanan visual dan fungsional. Karakteristik arsitektur di Malang Raya mencakup konsep tropis kontemporer dengan bukaan kaca besar, material ramah lingkungan, serta integrasi teknologi smart home."
+        }
+    ],
+    "testimonials": [
+        {
+            "id": 1,
+            "nama": "Bpk. Hendra Kusuma",
+            "peran": "Investor Kavling Kota Malang",
+            "rating": 5,
+            "ulasan": "Pembelian tanah kavling di Dieng sangat transparan, SHM aman dan langsung dibantu proses balik nama."
+        }
+    ],
+    "sosmed": {
+        "wa": "628197964648",
+        "ig": "https://instagram.com/propertymalangrayaaa",
+        "fb": "http://facebook.com/PropertyMalangRayaa"
+    },
+    "galleryConfig": {
+        "displayCount": 4
+    },
+    "siteSeo": {
+        "landingTitle": "Property Malang Raya - Portal Terpadu Tanah, Rumah & Villa Malang Raya",
+        "landingDesc": "Cari dan temukan tanah kavling SHM, rumah siap huni, dan villa eksklusif berhawa sejuk di Malang Raya.",
+        "landingKeywords": "properti malang, tanah kavling malang, rumah malang, villa batu, perumahan malang raya",
+        "katalogTitle": "Katalog Portofolio Proyek Malang Raya - Tanah, Rumah & Villa",
+        "katalogDesc": "Daftar lengkap pilihan profil proyek terbaik di Kota Malang, Kabupaten Malang, dan Kota Batu.",
+        "katalogKeywords": "profil proyek malang, katalog properti malang, kavling malang",
+        "tahapTitle": "Daftar Tahap Proyek - Property Malang Raya",
+        "tahapDesc": "Pilih tahap proyek (tahap, harga, spesifikasi) sebelum melihat detail lengkapnya.",
+        "tahapKeywords": "tahap proyek, tahap green garden, kavling malang",
+        "artikelTitle": "Artikel & Berita Properti Malang Raya - Tips Investasi",
+        "artikelDesc": "Wawasan, panduan hukum tanah kavling, dan informasi perkembangan properti terbaru di Malang Raya.",
+        "artikelKeywords": "artikel properti malang, tips investasi tanah, berita properti"
+    },
+    "heroSlides": [
+        {
+            "image": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1920&q=80",
+            "badge": "🌟 Rumah Villa Eksklusif Kota Batu",
+            "title": "Wujudkan Hunian Impian & Investasi Properti Paling Menguntungkan",
+            "desc": "Nikmati kenaikan *capital gain* tinggi dan *passive income* maksimal di kawasan dataran tinggi berhawa sejuk Kota Batu dengan legalitas SHM 100% aman."
+        },
+        {
+            "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=80",
+            "badge": "💎 Tanah Kavling Matang Siap Bangun",
+            "title": "Pilih Kavling Strategis Ber-SHM di Pusat Kota Malang",
+            "desc": "Investasi tanah kavling matang dengan akses jalan lebar, lingkungan asri, dan potensi kenaikan harga tanah yang sangat pesat setiap tahunnya."
+        },
+        {
+            "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80",
+            "badge": "🏡 Rumah Modern & Asri",
+            "title": "Kawasan Hunian Nyaman untuk Keluarga & Masa Depan",
+            "desc": "Temukan perumahan berkonsep modern minimalis dengan one gate system, keamanan 24 jam, dan fasilitas lingkungan terlengkap di Malang Raya."
+        }
+    ],
+    "promoLeads": []
+};
